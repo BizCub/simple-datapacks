@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.bizcub.simpleDatapacks.mixin",
+  "mixins": [
+    "MinecraftServerMixin",
+    "VanillaDataPackProviderMixin"
+  ],
+  "client": [
+    "CreateWorldScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

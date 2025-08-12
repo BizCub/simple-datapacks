@@ -1,0 +1,9 @@
+{
+  "text.autoconfig.simple_datapacks.title": "Настройки Simple Datapacks",
+  "text.autoconfig.simple_datapacks.option.datapacksPath": "Путь к наборам данных",
+  "text.autoconfig.simple_datapacks.option.datapacksPath.@Tooltip": "Папка, из которой будут считываться наборы данных",
+  "text.autoconfig.simple_datapacks.option.copyDatapacks": "Копировать наборы данных",
+  "text.autoconfig.simple_datapacks.option.copyDatapacks.@Tooltip": "Копировать ли наборы данных в мир при их выборе",
+  "text.autoconfig.simple_datapacks.option.worldText": "Показывать источник наборов данных",
+  "text.autoconfig.simple_datapacks.option.worldText.@Tooltip": "Показывать ли в описании наборов данных (мировой)"
+}
