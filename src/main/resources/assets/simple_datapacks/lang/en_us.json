@@ -1,9 +1,8 @@
 {
   "text.autoconfig.simple_datapacks.title": "Simple Datapacks Settings",
-  "text.autoconfig.simple_datapacks.option.datapacksPath": "Path to datapacks",
-  "text.autoconfig.simple_datapacks.option.datapacksPath.@Tooltip": "The folder from which datapacks will be read",
+  "text.autoconfig.simple_datapacks.option.datapacksPaths": "Paths to datapack folders",
   "text.autoconfig.simple_datapacks.option.copyDatapacks": "Copy datapacks",
   "text.autoconfig.simple_datapacks.option.copyDatapacks.@Tooltip": "Whether to copy datasets to the world when selecting them",
-  "text.autoconfig.simple_datapacks.option.worldText": "Show datapack source",
-  "text.autoconfig.simple_datapacks.option.worldText.@Tooltip": "Whether to show in datapack description (world)"
+  "text.autoconfig.simple_datapacks.option.showFeatures": "Show features",
+  "text.autoconfig.simple_datapacks.option.showFeatures.@Tooltip": "Whether to show experimental datapacks"
 }

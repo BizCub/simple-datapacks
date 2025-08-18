@@ -19,5 +19,4 @@ public class NeoForge {
             return AutoConfig.getConfigScreen(Configs.class, parent).get();
         });
     }
-}
-*///?}
+}*///?}

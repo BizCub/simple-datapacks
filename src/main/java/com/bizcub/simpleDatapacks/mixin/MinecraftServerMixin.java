@@ -1,37 +1,42 @@
 package com.bizcub.simpleDatapacks.mixin;
 
 import com.bizcub.simpleDatapacks.SimpleDatapacks;
-import net.minecraft.resource.ResourcePackManager;
+import com.bizcub.simpleDatapacks.config.Compat;
+import com.bizcub.simpleDatapacks.config.Configs;
+import net.minecraft.resource.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.WorldSavePath;
 import net.minecraft.world.level.storage.LevelStorage;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
 
     @Shadow @Final protected LevelStorage.Session session;
-
     @Shadow @Final private ResourcePackManager dataPackManager;
 
-    @Redirect(method = "loadDataPacks", at = @At(value = "INVOKE", target = "Ljava/util/Set;add(Ljava/lang/Object;)Z", ordinal = 1))
-    private static boolean loadDataPacks(Set instance, Object o) {
-        return false;
-    }
+    @Inject(method = "reloadResources", at = @At(value = "HEAD"))
+    private void reloadResources(CallbackInfoReturnable<CompletableFuture<Void>> cir) {
+        if (dataPackManager != null) {
+            //? if >=1.20.5 {
+            /*Collection<String> enabled = dataPackManager.getEnabledIds();
+             *///?} else {
+            Collection<String> enabled = dataPackManager.getEnabledNames();//?}
 
-    @Inject(method = "reloadResources", at = @At(value = "TAIL"))
-    private void reloadResources(Collection<String> dataPacks, CallbackInfoReturnable<CompletableFuture<Void>> cir) {
-        SimpleDatapacks.copyDatapacks(SimpleDatapacks.datapacksFolder, this.session.getDirectory(WorldSavePath.DATAPACKS), new ArrayList<>(dataPacks));
+            if (Compat.isModLoaded(SimpleDatapacks.clothConfigId)) {
+                for (String str : Configs.getInstance().datapacksPaths) {
+                    SimpleDatapacks.copyDatapacks(Path.of(str), this.session.getDirectory(WorldSavePath.DATAPACKS), new ArrayList<>(enabled));
+                }
+            }
+        }
     }
 }

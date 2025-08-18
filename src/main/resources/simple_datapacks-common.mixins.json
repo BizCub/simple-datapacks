@@ -3,6 +3,7 @@
   "package": "com.bizcub.simpleDatapacks.mixin",
   "mixins": [
     "MinecraftServerMixin",
+    "ReloadCommandMixin",
     "VanillaDataPackProviderMixin"
   ],
   "client": [

@@ -11,5 +11,4 @@ public class Fabric implements ModInitializer {
     public void onInitialize() {
         SimpleDatapacks.init(FabricLoader.getInstance().getGameDir());
     }
-}
-//?}
+}//?}

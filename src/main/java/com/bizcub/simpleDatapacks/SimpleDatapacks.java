@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class SimpleDatapacks {
 
@@ -16,26 +15,14 @@ public class SimpleDatapacks {
     //? if fabric {
     public static final String clothConfigId = "cloth-config";
     //?} elif forge || neoforge {
-    /*public static final String clothConfigId = "cloth_config";
-     *///?}
+    /*public static final String clothConfigId = "cloth_config";*///?}
 
     public static Path minecraftFolder;
-    public static Path datapacksFolder;
 
     public static void init(Path path) throws SecurityException {
         path.toFile().mkdirs();
         minecraftFolder = path;
         if (Compat.isModLoaded(clothConfigId)) Configs.init();
-        refreshPath();
-    }
-
-    public static Path resolveDatapacksPath(Path path) {
-        return path.resolve("datapacks");
-    }
-
-    public static void refreshPath() {
-        if (Compat.isModLoaded(clothConfigId)) datapacksFolder = Path.of(Configs.getInstance().datapacksPath);
-        else datapacksFolder = resolveDatapacksPath(minecraftFolder);
     }
 
     public static void copyDatapacks(Path src, Path dest, List<String> rawDatapacks) {
@@ -48,7 +35,7 @@ public class SimpleDatapacks {
         rawDatapacks.forEach(s -> datapacks.add(s.substring(5)));
 
         String[] copiedDatapacks = dest.toFile().list();
-        datapacks.removeAll(List.of(Objects.requireNonNull(copiedDatapacks)));
+        if (copiedDatapacks != null) datapacks.removeAll(List.of(copiedDatapacks));
 
         try {
             for (String str : datapacks) {

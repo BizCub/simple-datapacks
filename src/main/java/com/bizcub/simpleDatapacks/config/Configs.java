@@ -7,17 +7,19 @@ import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Config(name = SimpleDatapacks.modId)
 public class Configs implements ConfigData {
-
-    @ConfigEntry.Gui.Tooltip
-    public String datapacksPath = SimpleDatapacks.resolveDatapacksPath(SimpleDatapacks.minecraftFolder).toString();
 
     @ConfigEntry.Gui.Tooltip
     public boolean copyDatapacks = false;
 
     @ConfigEntry.Gui.Tooltip
-    public boolean worldText = false;
+    public boolean showFeatures = true;
+
+    public List<String> datapacksPaths = new ArrayList<>(List.of("datapacks", System.getProperty("user.home") + "\\Downloads"));
 
     public static Configs getInstance() {
         return AutoConfig.getConfigHolder(Configs.class).getConfig();
