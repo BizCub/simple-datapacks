@@ -2,6 +2,7 @@
 /*package com.bizcub.simpleDatapacks.platforms;
 
 import com.bizcub.simpleDatapacks.SimpleDatapacks;
+import com.bizcub.simpleDatapacks.config.Compat;
 import com.bizcub.simpleDatapacks.config.Configs;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraftforge.client.ConfigScreenHandler;
@@ -15,10 +16,12 @@ public class Forge {
     public Forge() {
         SimpleDatapacks.init(FMLPaths.GAMEDIR.get());
 
-        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> {
-            return new ConfigScreenHandler.ConfigScreenFactory((minecraft, screen) -> {
-                return AutoConfig.getConfigScreen(Configs.class, screen).get();
+        if (Compat.isModLoaded(SimpleDatapacks.clothConfigId)) {
+            ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> {
+                return new ConfigScreenHandler.ConfigScreenFactory((minecraft, screen) -> {
+                    return AutoConfig.getConfigScreen(Configs.class, screen).get();
+                });
             });
-        });
+        }
     }
 }*///?}
