@@ -25,8 +25,9 @@ public class MinecraftServerMixin {
     @Shadow @Final private ResourcePackManager dataPackManager;
 
     @Inject(method = "reloadResources", at = @At(value = "HEAD"))
-    private void reloadResources(CallbackInfoReturnable<CompletableFuture<Void>> cir) {
+    private void copyDatapacksInGame(CallbackInfoReturnable<CompletableFuture<Void>> cir) {
         if (dataPackManager != null) {
+            Path path = this.session.getDirectory(WorldSavePath.DATAPACKS);
             //? if >=1.20.5 {
             /*Collection<String> enabled = dataPackManager.getEnabledIds();
              *///?} else {
@@ -34,7 +35,7 @@ public class MinecraftServerMixin {
 
             if (Compat.isModLoaded(SimpleDatapacks.clothConfigId)) {
                 for (String str : Configs.getInstance().datapacksPaths) {
-                    SimpleDatapacks.copyDatapacks(Path.of(str), this.session.getDirectory(WorldSavePath.DATAPACKS), new ArrayList<>(enabled));
+                    SimpleDatapacks.copyDatapacks(Path.of(str), path, new ArrayList<>(enabled));
                 }
             }
         }

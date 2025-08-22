@@ -14,7 +14,7 @@ import java.util.Collection;
 public class ReloadCommandMixin {
 
     @Inject(method = "findNewDataPacks", at = @At("RETURN"), cancellable = true)
-    private static void findNewDataPacks(ResourcePackManager dataPackManager, SaveProperties saveProperties, Collection<String> enabledDataPacks, CallbackInfoReturnable<Collection<String>> cir) {
+    private static void skipSearchNewDatapacks(ResourcePackManager dataPackManager, SaveProperties saveProperties, Collection<String> enabledDataPacks, CallbackInfoReturnable<Collection<String>> cir) {
         cir.setReturnValue(enabledDataPacks);
     }
 }

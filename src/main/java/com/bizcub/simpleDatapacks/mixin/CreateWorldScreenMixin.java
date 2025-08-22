@@ -23,8 +23,8 @@ public abstract class CreateWorldScreenMixin {
     @Final @Shadow WorldCreator worldCreator;
     @Shadow private ResourcePackManager packManager;
 
-    @Inject(method = "startServer", at = @At(value = "TAIL"))
-    private void startServer(CallbackInfo ci) {
+    @Inject(method = "clearDataPackTempDir", at = @At(value = "TAIL"))
+    private void copyDatapacksBeforeGame(CallbackInfo ci) {
         if (packManager != null) {
             Path path = SimpleDatapacks.minecraftFolder.resolve("saves").resolve(worldCreator.getWorldDirectoryName()).resolve("datapacks");
             //? if >=1.20.5 {
