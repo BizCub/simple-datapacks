@@ -9,11 +9,12 @@ plugins {
 
 val minecraft = stonecutter.current.version
 val loader = loom.platform.get().name.lowercase()
+val mixinId = mod.id.replace("_", "-")
 
 version = "${mod.version}+${mod.mc_start}"
 group = mod.group
 base {
-    archivesName.set("${mod.id.replace("_", "-")}-$loader")
+    archivesName.set("$mixinId-$loader")
 }
 
 architectury.common(stonecutter.tree.branches.mapNotNull {
@@ -62,8 +63,8 @@ loom {
     }
     if (loader == "forge") {
         forge.mixinConfigs(
-            "${mod.id}-common.mixins.json",
-            "${mod.id}-forge.mixins.json",
+            "$mixinId-common.mixins.json",
+            "${mixinId}-forge.mixins.json",
         )
     }
 }
@@ -75,16 +76,16 @@ if (localPropertiesFile.exists()) {
 }
 
 publishMods {
-    file = rootProject.file("build/libs/${mod.version}/" + loader + "/${mod.id}-" + loader + "-${mod.version}+${mod.mc_start}.jar")
-    //file = project.tasks.remapJar.get().archiveFile
-    displayName = "${mod.name} ${loader.replaceFirstChar { it.uppercase() }} ${property("mod.mc_start")} v${mod.version}"
+    file = rootProject.file("build/libs/${mod.version}/$loader/${mod.id}-$loader-${mod.version}+${mod.mc_start}.jar")
+    displayName = "${mod.name} ${loader.replaceFirstChar { it.uppercase() }} ${mod.mc_start} v${mod.version}"
     changelog = rootProject.file("CHANGELOG.md").readText()
+    version = mod.version
     type = STABLE
     modLoaders.add(loader)
     if (loader == "fabric") modLoaders.add("quilt")
 
     modrinth {
-        projectId = property("mod.modrinth").toString()
+        projectId = mod.modrinth
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         if (loader == "fabric") optional("modmenu", "cloth-config")
         if (loader == "neoforge") optional("cloth-config")
@@ -96,7 +97,7 @@ publishMods {
     }
 
     curseforge {
-        projectId = property("mod.curseforge").toString()
+        projectId = mod.curseforge
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
         if (loader == "fabric") optional("modmenu", "cloth-config")
         if (loader == "neoforge") optional("cloth-config")
@@ -171,6 +172,7 @@ tasks.processResources {
     properties(
         listOf("fabric.mod.json", "META-INF/mods.toml", "META-INF/neoforge.mods.toml", "pack.mcmeta"),
         //"minecraft" to mod.prop("mc_dep_forgelike"),
+        "mixin" to mixinId,
         "id" to mod.id,
         "name" to mod.name,
         "description" to mod.description,
