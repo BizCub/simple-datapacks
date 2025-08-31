@@ -28,4 +28,4 @@ stonecutter {
     create(rootProject)
 }
 
-rootProject.name = "Simple Datapacks"
+rootProject.name = settings.extra["mod.name"] as String
