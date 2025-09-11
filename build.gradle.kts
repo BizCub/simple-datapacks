@@ -112,7 +112,7 @@ if (stonecutter.current.isActive) {
 }
 
 publishMods {
-    file.set(tasks.remapJar.get().archiveFile)
+    file = tasks.remapJar.get().archiveFile
     displayName = "${mod.name} ${loader.upperCaseFirst()} $mcStart v${mod.version}"
     changelog = rootProject.file("CHANGELOG.md").readText()
     version = mod.version
