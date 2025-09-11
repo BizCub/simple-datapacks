@@ -1,9 +1,0 @@
-{
-  "required": true,
-  "package": "com.bizcub.simpleDatapacks.platforms.forge.mixin",
-  "mixins": [
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
-}
