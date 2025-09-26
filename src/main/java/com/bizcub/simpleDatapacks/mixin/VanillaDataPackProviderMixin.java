@@ -4,8 +4,7 @@ import com.bizcub.simpleDatapacks.SimpleDatapacks;
 import com.bizcub.simpleDatapacks.config.Compat;
 import com.bizcub.simpleDatapacks.config.Configs;
 import net.minecraft.resource.*;
-//? if >=1.20.2 {
-/*import net.minecraft.util.path.SymlinkFinder;*///?}
+/*? >=1.20.2*/ /*import net.minecraft.util.path.SymlinkFinder;*/
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;

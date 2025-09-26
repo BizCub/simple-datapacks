@@ -11,11 +11,9 @@ import java.util.List;
 
 public class SimpleDatapacks {
 
-    public static final String modId = "simple_datapacks";
-    //? if fabric {
-    public static final String clothConfigId = "cloth-config";
-    //?} elif forge || neoforge {
-    /*public static final String clothConfigId = "cloth_config";*///?}
+    public static final String modId = /*$ mod_id {*/"simple_datapacks"/*$}*/;
+    /*? fabric*/ public static final String clothConfigId = "cloth-config";
+    /*? forge || neoforge*/ /*public static final String clothConfigId = "cloth_config";*/
 
     public static Path minecraftFolder;
 
@@ -39,7 +37,11 @@ public class SimpleDatapacks {
 
         try {
             for (String str : datapacks) {
-                FileUtils.copyDirectory(src.resolve(str).toFile(), dest.resolve(str).toFile());
+                if (src.isAbsolute()) {
+                    FileUtils.copyFile(src.resolve(str).toFile(), dest.resolve(str).toFile());
+                } else {
+                    FileUtils.copyDirectory(src.resolve(str).toFile(), dest.resolve(str).toFile());
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

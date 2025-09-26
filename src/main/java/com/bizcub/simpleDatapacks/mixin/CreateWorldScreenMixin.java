@@ -27,10 +27,8 @@ public abstract class CreateWorldScreenMixin {
     private void copyDatapacksBeforeGame(CallbackInfo ci) {
         if (packManager != null) {
             Path path = SimpleDatapacks.minecraftFolder.resolve("saves").resolve(worldCreator.getWorldDirectoryName()).resolve("datapacks");
-            //? if >=1.20.5 {
-            /*List<String> datapacks = new ArrayList<>(packManager.getEnabledIds());
-            *///?} else {
-            List<String> datapacks = new ArrayList<>(packManager.getEnabledNames());//?}
+            /*? >=1.20.5*/ /*List<String> datapacks = new ArrayList<>(packManager.getEnabledIds());*/
+            /*? <1.20.5*/ List<String> datapacks = new ArrayList<>(packManager.getEnabledNames());
 
             if (Compat.isModLoaded(SimpleDatapacks.clothConfigId)) {
                 for (String str : Configs.getInstance().datapacksPaths) {

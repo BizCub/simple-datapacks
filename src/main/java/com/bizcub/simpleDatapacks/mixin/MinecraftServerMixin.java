@@ -28,10 +28,8 @@ public class MinecraftServerMixin {
     private void copyDatapacksInGame(CallbackInfoReturnable<CompletableFuture<Void>> cir) {
         if (dataPackManager != null) {
             Path path = this.session.getDirectory(WorldSavePath.DATAPACKS);
-            //? if >=1.20.5 {
-            /*Collection<String> enabled = dataPackManager.getEnabledIds();
-             *///?} else {
-            Collection<String> enabled = dataPackManager.getEnabledNames();//?}
+            /*? >=1.20.5*/ /*Collection<String> enabled = dataPackManager.getEnabledIds();*/
+            /*? <1.20.5*/ Collection<String> enabled = dataPackManager.getEnabledNames();
 
             if (Compat.isModLoaded(SimpleDatapacks.clothConfigId)) {
                 for (String str : Configs.getInstance().datapacksPaths) {

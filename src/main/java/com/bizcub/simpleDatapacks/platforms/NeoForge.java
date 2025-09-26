@@ -1,4 +1,4 @@
-//? if neoforge {
+//? neoforge {
 /*package com.bizcub.simpleDatapacks.platforms;
 
 import com.bizcub.simpleDatapacks.SimpleDatapacks;

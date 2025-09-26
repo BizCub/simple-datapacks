@@ -1,4 +1,4 @@
-//? if forge {
+//? forge {
 /*package com.bizcub.simpleDatapacks.platforms;
 
 import com.bizcub.simpleDatapacks.SimpleDatapacks;

@@ -1,4 +1,4 @@
-//? if fabric {
+//? fabric {
 package com.bizcub.simpleDatapacks.platforms;
 
 import com.bizcub.simpleDatapacks.SimpleDatapacks;

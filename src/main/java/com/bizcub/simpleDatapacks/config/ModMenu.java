@@ -1,4 +1,4 @@
-//? if fabric {
+//? fabric {
 package com.bizcub.simpleDatapacks.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
