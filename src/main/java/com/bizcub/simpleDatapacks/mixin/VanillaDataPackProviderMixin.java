@@ -17,7 +17,7 @@ import java.util.List;
 @Mixin(VanillaDataPackProvider.class)
 public abstract class VanillaDataPackProviderMixin {
 
-    //? if >=1.20.2 {
+    //? >=1.20.2 {
     /*@Unique private static SymlinkFinder symlinkFinder;
 
     @Inject(method = "createManager(Ljava/nio/file/Path;Lnet/minecraft/util/path/SymlinkFinder;)Lnet/minecraft/resource/ResourcePackManager;", at = @At(value = "HEAD"))
@@ -36,7 +36,7 @@ public abstract class VanillaDataPackProviderMixin {
         return providedDatapacks.toArray(new ResourcePackProvider[0]);
     }
 
-    *///?} else {
+    *///?} >=1.19.4 {
     @ModifyArg(method = "createManager(Ljava/nio/file/Path;)Lnet/minecraft/resource/ResourcePackManager;", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/ResourcePackManager;<init>([Lnet/minecraft/resource/ResourcePackProvider;)V"))
     private static ResourcePackProvider[] addProviders(ResourcePackProvider[] par1) {
         ArrayList<ResourcePackProvider> providedDatapacks = new ArrayList<>(List.of(par1));
@@ -48,10 +48,11 @@ public abstract class VanillaDataPackProviderMixin {
         return providedDatapacks.toArray(new ResourcePackProvider[0]);
     }//?}
 
+    //? >=1.19.3 {
     @Inject(method = "create", at = @At(value = "HEAD"), cancellable = true)
     private void removeFeatures(CallbackInfoReturnable<ResourcePackProfile> cir) {
         if (Compat.isModLoaded(SimpleDatapacks.clothConfigId)) {
             if (!Configs.getInstance().showFeatures) cir.cancel();
         }
-    }
+    }//?}
 }

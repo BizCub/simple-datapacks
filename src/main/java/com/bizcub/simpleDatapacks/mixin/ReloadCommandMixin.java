@@ -13,8 +13,15 @@ import java.util.Collection;
 @Mixin(ReloadCommand.class)
 public class ReloadCommandMixin {
 
+    //? >=1.17 {
     @Inject(method = "findNewDataPacks", at = @At("RETURN"), cancellable = true)
     private static void skipSearchNewDatapacks(ResourcePackManager dataPackManager, SaveProperties saveProperties, Collection<String> enabledDataPacks, CallbackInfoReturnable<Collection<String>> cir) {
         cir.setReturnValue(enabledDataPacks);
     }
+
+    //?} 1.16.5 {
+    /*@Inject(method = "method_29478", at = @At("RETURN"), cancellable = true)
+    private static void skipSearchNewDatapacks(ResourcePackManager dataPackManager, SaveProperties saveProperties, Collection<String> enabledDataPacks, CallbackInfoReturnable<Collection<String>> cir) {
+        cir.setReturnValue(enabledDataPacks);
+    }*///?}
 }

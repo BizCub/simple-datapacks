@@ -8,9 +8,9 @@ val minecraft = stonecutter.current.version
 val loader = loom.platform.get().name.lowercase()
 val mixinId = mod.id.replace("_", "-")
 
-var mcStart = findProperty("mod.mc_start").toString()
+var mcStart = findProperty("publish.mc_start").toString()
 if (mcStart == "null") mcStart = minecraft
-var mcEnd = findProperty("mod.mc_end").toString()
+var mcEnd = findProperty("publish.mc_end").toString()
 if (mcEnd == "null") mcEnd = minecraft
 var neoPatch = findProperty("deps.neoforge_patch").toString()
 if (neoPatch == "null") neoPatch = "1.21+build.4"

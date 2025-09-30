@@ -14,8 +14,10 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 @Mixin(MinecraftServer.class)
@@ -33,9 +35,19 @@ public class MinecraftServerMixin {
 
             if (Compat.isModLoaded(SimpleDatapacks.clothConfigId)) {
                 for (String str : Configs.getInstance().datapacksPaths) {
-                    SimpleDatapacks.copyDatapacks(Path.of(str), path, new ArrayList<>(enabled));
+                    SimpleDatapacks.copyDatapacks(Paths.get(str), path, new ArrayList<>(enabled));
                 }
             }
+        }
+    }
+
+    @Redirect(method = "loadDataPacks", at = @At(value = "INVOKE", target = "Ljava/util/Set;add(Ljava/lang/Object;)Z", ordinal = 1))
+    private static boolean packConfiguration(Set<String> packs, Object pack) {
+        String packName = (String) pack;
+        if (packName.startsWith("file/")) {
+            return false;
+        } else {
+            return packs.add(packName);
         }
     }
 }
