@@ -5,7 +5,9 @@ import com.bizcub.simpleDatapacks.config.Configs;
 import org.apache.commons.io.FileUtils;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,28 +27,35 @@ public class SimpleDatapacks {
         if (Compat.isModLoaded(clothConfigId)) Configs.init();
     }
 
-    public static void copyDatapacks(Path src, Path dest, List<String> rawDatapacks) {
+    public static void copyDatapacks(Path dest, List<String> rawDatapacks) {
         if (Compat.isModLoaded(SimpleDatapacks.clothConfigId)) {
             if (!Configs.getInstance().copyDatapacks) return;
         } else return;
 
-        List<String> datapacks = new ArrayList<>();
-        rawDatapacks.removeIf(str -> !str.startsWith("file/"));
-        rawDatapacks.forEach(s -> datapacks.add(s.substring(5)));
+        for (String path : Configs.getInstance().datapacksPaths) {
+            Path src = Paths.get(path);
 
-        String[] copiedDatapacks = dest.toFile().list();
-        if (copiedDatapacks != null) datapacks.removeAll(Arrays.asList(copiedDatapacks));
+            List<String> datapacks = new ArrayList<>();
+            rawDatapacks.removeIf(str -> !str.startsWith("file/"));
+            rawDatapacks.forEach(s -> datapacks.add(s.substring(5)));
 
-        try {
-            for (String str : datapacks) {
-                if (src.isAbsolute()) {
-                    FileUtils.copyFile(src.resolve(str).toFile(), dest.resolve(str).toFile());
-                } else {
-                    FileUtils.copyDirectory(src.resolve(str).toFile(), dest.resolve(str).toFile());
+            String[] copiedDatapacks = dest.toFile().list();
+            if (copiedDatapacks != null) datapacks.removeAll(Arrays.asList(copiedDatapacks));
+
+            try {
+                for (String str : datapacks) {
+                    if (!Files.exists(src.resolve(str))) continue;
+
+                    Path pack = src.resolve(str);
+                    if (Files.isRegularFile(pack) && pack.toString().endsWith(".zip")) {
+                        FileUtils.copyFile(pack.toFile(), dest.resolve(str).toFile());
+                    } else {
+                        FileUtils.copyDirectory(pack.toFile(), dest.resolve(str).toFile());
+                    }
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

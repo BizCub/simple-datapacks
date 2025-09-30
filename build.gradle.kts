@@ -123,8 +123,8 @@ publishMods {
     modrinth {
         projectId = mod.modrinth
         accessToken = file("C:\\Tokens\\modrinth.txt").readText()
-        if (loader == "fabric") optional("modmenu", "cloth-config")
-        if (loader == "neoforge") optional("cloth-config")
+        if (loader == "fabric") requires("modmenu", "cloth-config")
+        if (loader == "neoforge") requires("cloth-config")
         minecraftVersionRange {
             start = mcStart
             end = mcEnd
@@ -135,8 +135,8 @@ publishMods {
     curseforge {
         projectId = mod.curseforge
         accessToken = file("C:\\Tokens\\curseforge.txt").readText()
-        if (loader == "fabric") optional("modmenu", "cloth-config")
-        if (loader == "neoforge") optional("cloth-config")
+        if (loader == "fabric") requires("modmenu", "cloth-config")
+        if (loader == "neoforge") requires("cloth-config")
         minecraftVersionRange {
             start = mcStart
             end = mcEnd
