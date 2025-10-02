@@ -24,7 +24,9 @@ Whenever possible, I added the most basic features for the mod that I could imag
 
 * It's possible to disable feature packs (experimental datapacks). If you don't use feature packs, you can disable them to save space on the datapack selection screen.
 
-* Unlike similar mods, datapacks will continue to work in the world, even if you disable the mod. In the mod settings, you can enable copying datapacks to the world folder. In this case, the datapack will work without the mod, because the game will read it from the world. AFTER USING DATAPACKS IN THE WORLD, IT IS RECOMMENDED TO RE-ENTER THE WORLD, AS SOME DATAPACKS WILL NOT WORK.
+* Unlike similar mods, datapacks will continue to work in the world, even if you disable the mod. In the mod settings, you can enable copying datapacks to the world folder. In this case, the datapack will work without the mod, because the game will read it from the world.
+
+* To ensure stable operation of datapacks in the game, it is recommended to use the /reload command. AFTER USING DATAPACKS IN THE WORLD, IT IS RECOMMENDED TO RE-ENTER THE WORLD, AS SOME DATAPACKS WILL NOT WORK.
 
 ## 🤝 Support
 <a href='https://ko-fi.com/X8X71FI3YO' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://i.postimg.cc/SQ5ZLKg5/support-me-on-kofi-beige.png' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
