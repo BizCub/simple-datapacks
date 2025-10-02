@@ -1,7 +1,7 @@
 plugins {
-    id("dev.architectury.loom") version "1.11-SNAPSHOT"
-    id("architectury-plugin") version "3.4-SNAPSHOT"
-    id("me.modmuss50.mod-publish-plugin") version "0.8.4"
+    id("dev.architectury.loom") version "1.+"
+    id("architectury-plugin") version "3.+"
+    id("me.modmuss50.mod-publish-plugin") version "0.8.+"
 }
 
 val minecraft = stonecutter.current.version
@@ -55,7 +55,7 @@ dependencies {
     minecraft("com.mojang:minecraft:$minecraft")
 
     if (loader == "fabric") {
-        modImplementation("net.fabricmc:fabric-loader:0.17.2")
+        modImplementation("net.fabricmc:fabric-loader:latest.release")
         mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
         modApi("com.terraformersmc:modmenu:${mod.modmenu}")
         modApi("me.shedaniel.cloth:cloth-config-fabric:${mod.cloth_config}")

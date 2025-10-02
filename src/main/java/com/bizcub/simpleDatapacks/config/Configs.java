@@ -20,6 +20,9 @@ public class Configs implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean showFeatures = true;
 
+    @ConfigEntry.Gui.Tooltip
+    public boolean globalDatapacks = false;
+
     public List<String> datapacksPaths = new ArrayList<>(Arrays.asList("datapacks", System.getProperty("user.home") + "\\Downloads"));
 
     public static Configs getInstance() {

@@ -4,5 +4,7 @@
   "text.autoconfig.simple_datapacks.option.copyDatapacks": "Copy datapacks",
   "text.autoconfig.simple_datapacks.option.copyDatapacks.@Tooltip": "Whether to copy datasets to the world when selecting them",
   "text.autoconfig.simple_datapacks.option.showFeatures": "Show features",
-  "text.autoconfig.simple_datapacks.option.showFeatures.@Tooltip": "Whether to show experimental datapacks"
+  "text.autoconfig.simple_datapacks.option.showFeatures.@Tooltip": "Whether to show experimental datapacks",
+  "text.autoconfig.simple_datapacks.option.globalDatapacks": "Global datapacks",
+  "text.autoconfig.simple_datapacks.option.globalDatapacks.@Tooltip": "Will all new data packs be used in the game immediately?"
 }

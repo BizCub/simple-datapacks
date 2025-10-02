@@ -1,5 +1,8 @@
 package com.bizcub.simpleDatapacks.mixin;
 
+import com.bizcub.simpleDatapacks.SimpleDatapacks;
+import com.bizcub.simpleDatapacks.config.Compat;
+import com.bizcub.simpleDatapacks.config.Configs;
 import net.minecraft.resource.ResourcePackManager;
 import net.minecraft.server.command.ReloadCommand;
 import net.minecraft.world.SaveProperties;
@@ -19,6 +22,7 @@ public class ReloadCommandMixin {
             at = @At("RETURN"),
             cancellable = true)
     private static void preventAutoLoading(ResourcePackManager dataPackManager, SaveProperties saveProperties, Collection<String> enabledDataPacks, CallbackInfoReturnable<Collection<String>> cir) {
+        if (Compat.isModLoaded(SimpleDatapacks.clothConfigId) && Configs.getInstance().globalDatapacks) return;
         cir.setReturnValue(enabledDataPacks);
     }
 }

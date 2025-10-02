@@ -1,6 +1,8 @@
 package com.bizcub.simpleDatapacks.mixin;
 
 import com.bizcub.simpleDatapacks.SimpleDatapacks;
+import com.bizcub.simpleDatapacks.config.Compat;
+import com.bizcub.simpleDatapacks.config.Configs;
 import net.minecraft.resource.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.WorldSavePath;
@@ -9,6 +11,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.nio.file.Path;
@@ -18,17 +21,25 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 @Mixin(MinecraftServer.class)
-public class MinecraftServerMixin {
+public abstract class MinecraftServerMixin {
+
+    @Shadow public abstract CompletableFuture<Void> reloadResources(Collection<String> dataPacks);
 
     @Shadow @Final protected LevelStorage.Session session;
     @Shadow @Final private ResourcePackManager dataPackManager;
+
+    @Inject(method="<init>", at=@At("TAIL"))
+    public void reload(CallbackInfo ci) {
+        /*? >=1.20.5*/ reloadResources(dataPackManager.getEnabledIds());
+        /*? <=1.20.4*/ /*reloadResources(dataPackManager.getEnabledNames());*/
+    }
 
     @Inject(method = "reloadResources", at = @At(value = "HEAD"))
     private void copyDatapacksInGame(CallbackInfoReturnable<CompletableFuture<Void>> cir) {
         if (dataPackManager != null) {
             Path path = this.session.getDirectory(WorldSavePath.DATAPACKS);
             /*? >=1.20.5*/ Collection<String> enabled = dataPackManager.getEnabledIds();
-            /*? <1.20.5*/ /*Collection<String> enabled = dataPackManager.getEnabledNames();*/
+            /*? <=1.20.4*/ /*Collection<String> enabled = dataPackManager.getEnabledNames();*/
 
             SimpleDatapacks.copyDatapacks(path, new ArrayList<>(enabled));
         }
@@ -37,7 +48,8 @@ public class MinecraftServerMixin {
     @Redirect(method = "loadDataPacks", at = @At(value = "INVOKE", target = "Ljava/util/Set;add(Ljava/lang/Object;)Z", ordinal = 1))
     private static boolean preventAutoLoading(Set<String> packs, Object pack) {
         String packName = (String) pack;
-        if (packName.startsWith("file/")) return false;
-        else return packs.add(packName);
+
+        if ((Compat.isModLoaded(SimpleDatapacks.clothConfigId) && Configs.getInstance().globalDatapacks) || !packName.startsWith("file/")) return packs.add(packName);
+        return false;
     }
 }
