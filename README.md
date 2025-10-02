@@ -18,11 +18,15 @@ Whenever possible, I added the most basic features for the mod that I could imag
 
 * The mod has a configuration. The values ​​used by the mod can be changed in the mod menu (Fabric requires ModMenu), and can also be changed in the configuration file, which is available using the Cloth Config API.
 
-* The mod allows players to add and load datapacks from different folders. To change the sources of these packs, you need to configure them in the mod options. If you want to specify a folder in the root directory of the game, for example, my_datapacks instead of the full path C:\Users\{USERNAME}\AppData\Roaming\.minecraft\my_datapacks, just enter the folder name. By default, datapacks are loaded from the datapacks folder in the root directory and the downloads folder, which allows them to immediately appear in the game after installation.
+* The mod allows players to add and load datapacks from different folders. To change the sources of these packs, you need to configure them in the mod settings. If you want to specify a folder in the game's root directory, for example, my_datapacks instead of the full path C:\Users\{USERNAME}\AppData\Roaming\.minecraft\my_datapacks, simply enter the folder name in the field in the mod settings menu. By default, datapacks are loaded from the datapacks folder in the root directory and the downloads folder, allowing them to appear in the game immediately after installation (provided Cloth Config API is loaded; otherwise, only the datapacks folder will be used).
 
-* There is an option to disable feature packs. If you do not use feature packs, you can disable them, this will save space on the screen.
+* By default, datapacks are "Available" after being added to the game, meaning that the required datapacks must be loaded through the datapack menu during world creation or using the /datapack enable command. However, if you want each new datapack to be used by default in the game without manual activation, you can use the automatic datapack loading setting in the mod settings.
 
-* Unlike similar mods, datapacks will continue to work in the world, even if you disable the mod. In the mod settings, you can enable copying datapacks to the world folder. In this case, the datapack will work without the mod, because the game will read it from the world. AFTER USING DATAPACKS IN THE WORLD, IT IS RECOMMENDED TO RE-ENTER THE WORLD, AS SOME DATAPACKS WILL NOT WORK.
+* It's possible to disable feature packs (experimental datapacks). If you don't use feature packs, you can disable them to save space on the datapack selection screen.
+
+* Unlike similar mods, datapacks will continue to work in the world, even if you disable the mod. In the mod settings, you can enable copying datapacks to the world folder. In this case, the datapack will work without the mod, because the game will read it from the world.
+
+* To ensure stable operation of datapacks in the game, it is recommended to use the /reload command. AFTER USING DATAPACKS IN THE WORLD, IT IS RECOMMENDED TO RE-ENTER THE WORLD, AS SOME DATAPACKS WILL NOT WORK.
 
 ## 🤝 Support
 <a href='https://ko-fi.com/X8X71FI3YO' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://i.postimg.cc/SQ5ZLKg5/support-me-on-kofi-beige.png' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
