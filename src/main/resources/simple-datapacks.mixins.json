@@ -2,7 +2,6 @@
   "required": true,
   "package": "com.bizcub.simpleDatapacks.mixin",
   "mixins": [
-    "MinecraftClientMixin",
     "MinecraftServerMixin",
     "ReloadCommandMixin",
     "VanillaDataPackProviderMixin"

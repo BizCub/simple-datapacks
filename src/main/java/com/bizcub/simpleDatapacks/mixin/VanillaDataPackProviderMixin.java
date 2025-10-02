@@ -35,11 +35,10 @@ public abstract class VanillaDataPackProviderMixin {
         return AddProviders.add(par1);
     }*///?}
 
-    //? >=1.19.3 {
     @Inject(method = "create", at = @At(value = "HEAD"), cancellable = true)
     private void removeFeatures(CallbackInfoReturnable<ResourcePackProfile> cir) {
         if (Compat.isModLoaded(SimpleDatapacks.clothConfigId)) {
             if (!Configs.getInstance().showFeatures) cir.cancel();
         }
-    }//?}
+    }
 }

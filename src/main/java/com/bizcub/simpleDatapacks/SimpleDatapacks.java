@@ -15,9 +15,8 @@ import java.util.List;
 public class SimpleDatapacks {
 
     public static final String modId = /*$ mod_id {*/"simple_datapacks"/*$}*/;
-    /*? (fabric && >=1.18) || (forge && <1.17)*/ public static final String clothConfigId = "cloth-config";
-    /*? (forge && >=1.17) || neoforge*/ /*public static final String clothConfigId = "cloth_config";*/
-    /*? fabric && <1.18*/ /*public static final String clothConfigId = "cloth-config2";*/
+    /*? fabric*/ public static final String clothConfigId = "cloth-config";
+    /*? forge || neoforge*/ /*public static final String clothConfigId = "cloth_config";*/
 
     public static Path minecraftFolder;
 

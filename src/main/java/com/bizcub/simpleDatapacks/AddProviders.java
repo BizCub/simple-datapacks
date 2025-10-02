@@ -42,8 +42,6 @@ public class AddProviders {
     }
 
     private static FileResourcePackProvider addProvider(Path path) {
-        /^? >=1.19.4^/ return new FileResourcePackProvider(path, ResourceType.SERVER_DATA, ResourcePackSource.NONE);
-        /^? >=1.17 && <=1.19.3^/ /^return new FileResourcePackProvider(path.toFile(), ResourcePackSource.PACK_SOURCE_NONE);^/
-        /^? 1.16.5^/ /^return new FileResourcePackProvider(path.toFile(), ResourcePackSource.field_25347);^/
+        return new FileResourcePackProvider(path, ResourceType.SERVER_DATA, ResourcePackSource.NONE);
     }*///?}
 }

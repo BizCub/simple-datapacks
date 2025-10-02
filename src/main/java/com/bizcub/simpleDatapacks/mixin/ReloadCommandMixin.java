@@ -16,11 +16,7 @@ import java.util.Collection;
 @Mixin(ReloadCommand.class)
 public class ReloadCommandMixin {
 
-    @Inject(
-            /*? >=1.17*/ method = "findNewDataPacks",
-            /*? 1.16.5*/ /*method = "method_29478",*/
-            at = @At("RETURN"),
-            cancellable = true)
+    @Inject(method = "findNewDataPacks", at = @At("RETURN"), cancellable = true)
     private static void preventAutoLoading(ResourcePackManager dataPackManager, SaveProperties saveProperties, Collection<String> enabledDataPacks, CallbackInfoReturnable<Collection<String>> cir) {
         if (Compat.isModLoaded(SimpleDatapacks.clothConfigId) && Configs.getInstance().globalDatapacks) return;
         cir.setReturnValue(enabledDataPacks);
