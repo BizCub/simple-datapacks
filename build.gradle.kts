@@ -14,6 +14,8 @@ var mcEnd = findProperty("publish.mc_end").toString()
 if (mcEnd == "null") mcEnd = minecraft
 var neoPatch = findProperty("deps.neoforge_patch").toString()
 if (neoPatch == "null") neoPatch = "1.21+build.4"
+var forgePatch = findProperty("deps.forge_patch").toString()
+if (forgePatch == "null") forgePatch = "1.21.9+build.6"
 
 base.archivesName.set("$mixinId-$loader")
 version = "${mod.version}+$mcStart"
@@ -62,7 +64,10 @@ dependencies {
     }
     if (loader == "forge") {
         "forge"("net.minecraftforge:forge:$minecraft-${mod.dep("forge_loader")}")
-        mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
+        mappings(loom.layered {
+            mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
+            mappings("dev.architectury:yarn-mappings-patch-forge:$forgePatch")
+        })
         modApi("me.shedaniel.cloth:cloth-config-forge:${mod.cloth_config}")
     }
     if (loader == "neoforge") {
