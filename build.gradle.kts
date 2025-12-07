@@ -54,43 +54,24 @@ loom {
 
 repositories {
     maven("https://maven.neoforged.net/releases/")
-    maven("https://maven.shedaniel.me/")
     maven("https://maven.terraformersmc.com/releases/")
 }
 
 dependencies {
     minecraft("com.mojang:minecraft:${if (snapshot == "null") minecraft else snapshot}")
-    if (stonecutter.eval(minecraft, ">=1.21.11")) mappings(loom.officialMojangMappings())
+    mappings(loom.officialMojangMappings())
+    modApi("me.shedaniel.cloth:cloth-config-$loader:${mod.cloth_config}")
 
     if (isFabric) {
         modImplementation("net.fabricmc:fabric-loader:latest.release")
-        if (stonecutter.eval(minecraft, "<=1.21.10")) {
-            mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
-        }
         modApi("com.terraformersmc:modmenu:${mod.modmenu}")
-        modApi("me.shedaniel.cloth:cloth-config-fabric:${mod.cloth_config}")
     }
-    if (isForge) {
+    if (isForge)
         "forge"("net.minecraftforge:forge:$minecraft-${mod.dep("forge_loader")}")
-        if (stonecutter.eval(minecraft, "<=1.21.10")) {
-            mappings(loom.layered {
-                mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
-                mappings("dev.architectury:yarn-mappings-patch-forge:$forgePatch")
-            })
-        }
-        modApi("me.shedaniel.cloth:cloth-config-forge:${mod.cloth_config}")
-    }
     if (isNeoForge) {
         val neoVers = minecraft.substring(2)
         val neoLoader = mod.dep("neoforge_loader")
         "neoForge"("net.neoforged:neoforge:${if (neoVers.contains(".")) "$neoVers.$neoLoader" else "$neoVers.0.$neoLoader"}")
-        if (stonecutter.eval(minecraft, "<=1.21.10")) {
-            mappings(loom.layered {
-                mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
-                mappings("dev.architectury:yarn-mappings-patch-neoforge:$neoPatch")
-            })
-        }
-        modApi("me.shedaniel.cloth:cloth-config-neoforge:${mod.cloth_config}")
     }
 }
 

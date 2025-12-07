@@ -8,15 +8,15 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-//? >=1.21.11 {
-/*import net.minecraft.server.packs.repository.FolderRepositorySource;
+import net.minecraft.server.packs.repository.FolderRepositorySource;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.server.packs.repository.RepositorySource;
-import net.minecraft.world.level.validation.DirectoryValidator;
+/*? >=1.20.2*/ import net.minecraft.world.level.validation.DirectoryValidator;
 
 public class AddProviders {
 
+    //? >=1.20.2 {
     public static RepositorySource[] add(RepositorySource[] arg, DirectoryValidator symlinkFinder) {
         ArrayList<RepositorySource> providedDatapacks = new ArrayList<>(Arrays.asList(arg));
         if (Compat.isModLoaded(SimpleDatapacks.clothConfigId)) {
@@ -30,44 +30,19 @@ public class AddProviders {
     private static FolderRepositorySource addProvider(Path path, DirectoryValidator symlinkFinder) {
         return new FolderRepositorySource(path, PackType.SERVER_DATA, PackSource.DEFAULT, symlinkFinder);
     }
-}
-
-*///?} <=1.21.10 {
-import net.minecraft.resource.FileResourcePackProvider;
-import net.minecraft.resource.ResourcePackProvider;
-import net.minecraft.resource.ResourcePackSource;
-import net.minecraft.resource.ResourceType;
-/*? >=1.20.2*/ import net.minecraft.util.path.SymlinkFinder;
-
-public class AddProviders {
-
-    //? >=1.20.2 {
-    public static ResourcePackProvider[] add(ResourcePackProvider[] arg, SymlinkFinder symlinkFinder) {
-        ArrayList<ResourcePackProvider> providedDatapacks = new ArrayList<>(Arrays.asList(arg));
-        if (Compat.isModLoaded(SimpleDatapacks.clothConfigId)) {
-            for (String path : Configs.getInstance().datapacksPaths) {
-                providedDatapacks.add(addProvider(Paths.get(path), symlinkFinder));
-            }
-        } else providedDatapacks.add(addProvider(Paths.get("datapacks"), symlinkFinder));
-        return providedDatapacks.toArray(new ResourcePackProvider[0]);
-    }
-
-    private static FileResourcePackProvider addProvider(Path path, SymlinkFinder symlinkFinder) {
-        return new FileResourcePackProvider(path, ResourceType.SERVER_DATA, ResourcePackSource.NONE, symlinkFinder);
-    }
 
     //?} <=1.20.1 {
-    /*public static ResourcePackProvider[] add(ResourcePackProvider[] arg) {
-        ArrayList<ResourcePackProvider> providedDatapacks = new ArrayList<>(Arrays.asList(arg));
+    /*public static RepositorySource[] add(RepositorySource[] arg) {
+        ArrayList<RepositorySource> providedDatapacks = new ArrayList<>(Arrays.asList(arg));
         if (Compat.isModLoaded(SimpleDatapacks.clothConfigId)) {
             for (String path : Configs.getInstance().datapacksPaths) {
                 providedDatapacks.add(addProvider(Paths.get(path)));
             }
         } else providedDatapacks.add(addProvider(Paths.get("datapacks")));
-        return providedDatapacks.toArray(new ResourcePackProvider[0]);
+        return providedDatapacks.toArray(new RepositorySource[0]);
     }
 
-    private static FileResourcePackProvider addProvider(Path path) {
-        return new FileResourcePackProvider(path, ResourceType.SERVER_DATA, ResourcePackSource.NONE);
+    private static FolderRepositorySource addProvider(Path path) {
+        return new FolderRepositorySource(path, PackType.SERVER_DATA, PackSource.DEFAULT);
     }*///?}
-}//?}
+}

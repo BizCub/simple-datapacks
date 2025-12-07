@@ -12,8 +12,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-//? >=1.21.11 {
-/*import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
+import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.client.gui.screens.worldselection.WorldCreationUiState;
 import net.minecraft.server.packs.repository.PackRepository;
 
@@ -32,27 +31,3 @@ public abstract class CreateWorldScreenMixin {
         }
     }
 }
-
-*///?} <=1.21.10 {
-import net.minecraft.client.gui.screen.world.CreateWorldScreen;
-import net.minecraft.client.gui.screen.world.WorldCreator;
-import net.minecraft.resource.ResourcePackManager;
-
-@Mixin(CreateWorldScreen.class)
-public abstract class CreateWorldScreenMixin {
-
-    @Final @Shadow WorldCreator worldCreator;
-    @Shadow private ResourcePackManager packManager;
-
-    @Inject(method = "clearDataPackTempDir", at = @At(value = "TAIL"))
-    private void copyDatapacksBeforeGame(CallbackInfo ci) {
-        if (packManager != null) {
-            Path path = SimpleDatapacks.minecraftFolder.resolve("saves").resolve(worldCreator.getWorldDirectoryName()).resolve("datapacks");
-
-            /*? >=1.20.5*/ List<String> datapacks = new ArrayList<>(packManager.getEnabledIds());
-            /*? <=1.20.4*/ /*List<String> datapacks = new ArrayList<>(packManager.getEnabledNames());*/
-
-            SimpleDatapacks.copyDatapacks(path, datapacks);
-        }
-    }
-}//?}
