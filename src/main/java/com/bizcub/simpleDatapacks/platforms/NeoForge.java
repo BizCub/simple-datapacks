@@ -16,7 +16,7 @@ public class NeoForge {
     public NeoForge() {
         SimpleDatapacks.init(FMLPaths.GAMEDIR.get());
 
-        if (Compat.isModLoaded(SimpleDatapacks.clothConfigId)) {
+        if (Compat.isModLoaded(Compat.clothConfigId)) {
             ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> (container, parent) -> {
                 return AutoConfig.getConfigScreen(Configs.class, parent).get();
             });

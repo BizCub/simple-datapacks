@@ -19,7 +19,7 @@ public class AddProviders {
     //? >=1.20.2 {
     public static RepositorySource[] add(RepositorySource[] arg, DirectoryValidator symlinkFinder) {
         ArrayList<RepositorySource> providedDatapacks = new ArrayList<>(Arrays.asList(arg));
-        if (Compat.isModLoaded(SimpleDatapacks.clothConfigId)) {
+        if (Compat.isModLoaded(Compat.clothConfigId)) {
             for (String path : Configs.getInstance().datapacksPaths) {
                 providedDatapacks.add(addProvider(Paths.get(path), symlinkFinder));
             }
@@ -34,7 +34,7 @@ public class AddProviders {
     //?} <=1.20.1 {
     /*public static RepositorySource[] add(RepositorySource[] arg) {
         ArrayList<RepositorySource> providedDatapacks = new ArrayList<>(Arrays.asList(arg));
-        if (Compat.isModLoaded(SimpleDatapacks.clothConfigId)) {
+        if (Compat.isModLoaded(Compat.clothConfigId)) {
             for (String path : Configs.getInstance().datapacksPaths) {
                 providedDatapacks.add(addProvider(Paths.get(path)));
             }

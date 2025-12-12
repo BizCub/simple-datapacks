@@ -1,7 +1,7 @@
 plugins {
     id("dev.architectury.loom") version "1.+"
     id("architectury-plugin") version "3.+"
-    id("me.modmuss50.mod-publish-plugin") version "0.8.+"
+    id("me.modmuss50.mod-publish-plugin") version "1.+"
 }
 
 val minecraft = stonecutter.current.version

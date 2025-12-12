@@ -47,7 +47,7 @@ public abstract class MinecraftServerMixin {
     private static boolean preventAutoLoading(Set<String> packs, Object pack) {
         String packName = (String) pack;
 
-        if ((Compat.isModLoaded(SimpleDatapacks.clothConfigId) && Configs.getInstance().globalDatapacks) || !packName.startsWith("file/")) return packs.add(packName);
+        if ((Compat.isModLoaded(Compat.clothConfigId) && Configs.getInstance().globalDatapacks) || !packName.startsWith("file/")) return packs.add(packName);
         return false;
     }
 }

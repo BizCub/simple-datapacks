@@ -1,6 +1,5 @@
 package com.bizcub.simpleDatapacks.mixin;
 
-import com.bizcub.simpleDatapacks.SimpleDatapacks;
 import com.bizcub.simpleDatapacks.config.Compat;
 import com.bizcub.simpleDatapacks.config.Configs;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +18,7 @@ public class ReloadCommandMixin {
 
     @Inject(method = "discoverNewPacks", at = @At("RETURN"), cancellable = true)
     private static void preventAutoLoading(PackRepository packRepository, WorldData worldData, Collection<String> enabledDataPacks, CallbackInfoReturnable<Collection<String>> cir) {
-        if (Compat.isModLoaded(SimpleDatapacks.clothConfigId) && Configs.getInstance().globalDatapacks) return;
+        if (Compat.isModLoaded(Compat.clothConfigId) && Configs.getInstance().globalDatapacks) return;
         cir.setReturnValue(enabledDataPacks);
     }
 }

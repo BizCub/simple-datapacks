@@ -15,19 +15,16 @@ import java.util.List;
 public class SimpleDatapacks {
 
     public static final String modId = /*$ mod_id {*/"simple_datapacks"/*$}*/;
-    /*? fabric*/ public static final String clothConfigId = "cloth-config";
-    /*? forge || neoforge*/ /*public static final String clothConfigId = "cloth_config";*/
-
     public static Path minecraftFolder;
 
     public static void init(Path path) throws SecurityException {
         path.toFile().mkdirs();
         minecraftFolder = path;
-        if (Compat.isModLoaded(clothConfigId)) Configs.init();
+        if (Compat.isModLoaded(Compat.clothConfigId)) Configs.init();
     }
 
     public static void copyDatapacks(Path dest, List<String> rawDatapacks) {
-        if (Compat.isModLoaded(SimpleDatapacks.clothConfigId)) {
+        if (Compat.isModLoaded(Compat.clothConfigId)) {
             if (!Configs.getInstance().copyDatapacks) return;
         } else return;
 
