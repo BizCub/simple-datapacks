@@ -6,5 +6,9 @@
   "text.autoconfig.simple_datapacks.option.showFeatures": "Show features",
   "text.autoconfig.simple_datapacks.option.showFeatures.@Tooltip": "Whether to show experimental datapacks",
   "text.autoconfig.simple_datapacks.option.globalDatapacks": "Global datapacks",
-  "text.autoconfig.simple_datapacks.option.globalDatapacks.@Tooltip": "Will all new data packs be used in the game immediately?"
+  "text.autoconfig.simple_datapacks.option.globalDatapacks.@Tooltip": "Will all new data packs be used in the game immediately?",
+  "text.autoconfig.simple_datapacks.option.sendRestartWarning": "Send a warning",
+  "text.autoconfig.simple_datapacks.option.sendRestartWarning.@Tooltip": "Send a warning about the need to restart the world?",
+
+  "commands.reload.reload_needed": "You may need to restart the world (if there are datapacks that require it)"
 }
