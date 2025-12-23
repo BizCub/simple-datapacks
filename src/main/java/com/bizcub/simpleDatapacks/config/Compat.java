@@ -12,4 +12,8 @@ public class Compat {
         /*? fabric*/ return FabricLoader.getInstance().isModLoaded(modId);
         /*? forge || neoforge*/ /*return ModList.get().isLoaded(modId);*/
     }
+
+    public static boolean isClothConfigLoaded() {
+        return isModLoaded(clothConfigId);
+    }
 }

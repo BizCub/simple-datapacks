@@ -13,11 +13,11 @@ public class Forge {
     public Forge() {
         SimpleDatapacks.init(FMLPaths.GAMEDIR.get());
 
-        //? <=1.21.3 {
-        /^ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> {
+        //? is_cloth_config_available {
+        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> {
             return new ConfigScreenHandler.ConfigScreenFactory((minecraft, screen) -> {
                 return PlatformInit.getScreen(screen);
             });
-        });^///?}
+        });//?}
     }
 }*///?}

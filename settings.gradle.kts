@@ -5,7 +5,7 @@ pluginManagement {
         maven("https://maven.fabricmc.net/")
         maven("https://maven.architectury.dev")
         maven("https://maven.minecraftforge.net")
-        maven("https://maven.neoforged.net/releases/")
+        maven("https://maven.neoforged.net/releases")
         maven("https://maven.kikugie.dev/snapshots")
     }
 }
@@ -15,15 +15,14 @@ plugins {
 }
 
 stonecutter {
-    kotlinController = true
-    centralScript = "build.gradle.kts"
     create(rootProject) {
-        fun mc(loader: String, vararg versions: String) {
-            for (version in versions) version("$version-$loader", version)
-        }
-        mc("fabric", "1.21.11", "1.21.9", "1.20.5", "1.20.2", "1.19.4")
-        mc("forge", "1.21.11", "1.21.9", "1.20.6", "1.20.2", "1.19.4")
-        mc("neoforge", "1.21.11", "1.21.9", "1.21")
+        val fb = "fabric"; val fr = "forge"; val nf = "neoforge"
+        fun match(version: String, vararg loaders: String) = loaders
+            .forEach { version("$version-$it", version) }
+        match("1.21.9", fb, fr, nf)
+        match("1.21.1", fb, fr, nf)
+        match("1.20.2", fb, fr)
+        match("1.19.4", fb, fr)
     }
 }
 

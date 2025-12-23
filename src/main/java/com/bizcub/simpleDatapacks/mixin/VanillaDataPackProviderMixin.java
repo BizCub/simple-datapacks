@@ -37,7 +37,7 @@ public abstract class VanillaDataPackProviderMixin {
 
     @Inject(method = "createBuiltinPack", at = @At(value = "HEAD"), cancellable = true)
     private void removeFeatures(CallbackInfoReturnable<Pack> cir) {
-        if (Compat.isModLoaded(Compat.clothConfigId)) {
+        if (Compat.isClothConfigLoaded()) {
             if (!Configs.getInstance().showFeatures) cir.cancel();
         }
     }

@@ -17,10 +17,6 @@ var pubStart = findProperty("publish.start").toString()
 if (pubStart == "null") pubStart = minecraft
 var pubEnd = findProperty("publish.end").toString()
 if (pubEnd == "null") pubEnd = minecraft
-var neoPatch = findProperty("deps.neoforge_patch").toString()
-if (neoPatch == "null") neoPatch = "1.21+build.4"
-var forgePatch = findProperty("deps.forge_patch").toString()
-if (forgePatch == "null") forgePatch = "1.21.9+build.6"
 
 base.archivesName.set("${mixinId}-$loader")
 version = "${mod.version}+$pubStart"
@@ -28,6 +24,7 @@ version = "${mod.version}+$pubStart"
 stonecutter {
     swaps["mod_id"] = "\"${prop("mod.id")}\""
     constants.match(loader, "fabric", "forge", "neoforge")
+    constants["is_cloth_config_available"] = !(loader == "forge" && stonecutter.eval(minecraft, ">=1.21.4"))
     java {
         val java = if (stonecutter.eval(minecraft, ">=1.20.5")) JavaVersion.VERSION_21
         else if (stonecutter.eval(minecraft, ">=1.18")) JavaVersion.VERSION_17
@@ -122,7 +119,7 @@ publishMods {
         projectId = mod.modrinth
         accessToken = file("C:\\Tokens\\modrinth.txt").readText()
         if (isFabric) requires("modmenu")
-        requires("cloth-config")
+        if (!(isForge && stonecutter.eval(minecraft, ">=1.21.4"))) requires("cloth-config")
         minecraftVersionRange {
             start = pubStart
             end = pubEnd
@@ -134,7 +131,7 @@ publishMods {
         projectId = mod.curseforge
         accessToken = file("C:\\Tokens\\curseforge.txt").readText()
         if (isFabric) requires("modmenu")
-        requires("cloth-config")
+        if (!(isForge && stonecutter.eval(minecraft, ">=1.21.4"))) requires("cloth-config")
         minecraftVersionRange {
             start = pubStart
             end = pubEnd

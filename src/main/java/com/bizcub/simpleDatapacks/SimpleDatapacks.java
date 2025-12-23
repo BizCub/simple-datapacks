@@ -20,11 +20,11 @@ public class SimpleDatapacks {
     public static void init(Path path) throws SecurityException {
         path.toFile().mkdirs();
         minecraftFolder = path;
-        if (Compat.isModLoaded(Compat.clothConfigId)) Configs.init();
+        if (Compat.isClothConfigLoaded()) Configs.init();
     }
 
     public static void copyDatapacks(Path dest, List<String> rawDatapacks) {
-        if (Compat.isModLoaded(Compat.clothConfigId)) {
+        if (Compat.isClothConfigLoaded()) {
             if (!Configs.getInstance().copyDatapacks) return;
         } else return;
 

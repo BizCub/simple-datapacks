@@ -2,6 +2,7 @@ package com.bizcub.simpleDatapacks.mixin;
 
 import com.bizcub.simpleDatapacks.config.Compat;
 import com.bizcub.simpleDatapacks.config.Configs;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,7 +25,7 @@ public class ReloadCommandMixin {
 
     @Inject(method = "discoverNewPacks", at = @At("RETURN"), cancellable = true)
     private static void preventAutoLoading(PackRepository packRepository, WorldData worldData, Collection<String> enabledDataPacks, CallbackInfoReturnable<Collection<String>> cir) {
-        if (Compat.isModLoaded(Compat.clothConfigId) && Configs.getInstance().globalDatapacks) return;
+        if (Compat.isClothConfigLoaded() && Configs.getInstance().globalDatapacks) return;
         cir.setReturnValue(enabledDataPacks);
     }
 
@@ -35,9 +36,10 @@ public class ReloadCommandMixin {
 
     @Inject(method = "register", at = @At("HEAD"))
     private static void sendMessage(CallbackInfo ci) {
-        if (simpleDatapacks$shouldSend && Compat.isModLoaded(Compat.clothConfigId) && Configs.getInstance().sendRestartWarning) {
-            assert Minecraft.getInstance().player != null;
-            Minecraft.getInstance().player.displayClientMessage(Component.translatable("commands.reload.reload_needed").withColor(11944771), true);
+        if (simpleDatapacks$shouldSend && !(Compat.isClothConfigLoaded() && !Configs.getInstance().sendRestartWarning)) {
+            var player = Minecraft.getInstance().player;
+            assert player != null;
+            player.displayClientMessage(Component.translatable("commands.reload.reload_needed").withStyle(ChatFormatting.RED), true);
             simpleDatapacks$shouldSend = false;
         }
     }
