@@ -24,15 +24,13 @@ public class SimpleDatapacks {
     }
 
     public static void copyDatapacks(Path dest, List<String> rawDatapacks) {
-        if (Compat.isClothConfigLoaded()) {
-            if (!Configs.getInstance().copyDatapacks) return;
-        } else return;
+        if (!(Compat.isClothConfigLoaded() && Configs.getInstance().copyDatapacks)) return;
 
         for (String path : Configs.getInstance().datapacksPaths) {
             Path src = Paths.get(path);
 
             List<String> datapacks = new ArrayList<>();
-            rawDatapacks.removeIf(str -> !str.startsWith("file/"));
+            rawDatapacks.removeIf(s -> !s.startsWith("file/"));
             rawDatapacks.forEach(s -> datapacks.add(s.substring(5)));
 
             String[] copiedDatapacks = dest.toFile().list();
@@ -43,11 +41,10 @@ public class SimpleDatapacks {
                     if (!Files.exists(src.resolve(str))) continue;
 
                     Path pack = src.resolve(str);
-                    if (Files.isRegularFile(pack) && pack.toString().endsWith(".zip")) {
+                    if (Files.isRegularFile(pack) && pack.toString().endsWith(".zip"))
                         FileUtils.copyFile(pack.toFile(), dest.resolve(str).toFile());
-                    } else {
+                    else
                         FileUtils.copyDirectory(pack.toFile(), dest.resolve(str).toFile());
-                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();

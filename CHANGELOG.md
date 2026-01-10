@@ -1,2 +1,1 @@
-* Now when applying data packs, a warning appears about the need to restart the world
-* Fixed an issue where Cloth Config was required for Forge versions higher than 1.21.3
+* Now, if the "Global datapacks" option is enabled, datapacks are downloaded before world creation. This avoids the need to restart the world for some datapacks to work, which require a restart when added to the game.

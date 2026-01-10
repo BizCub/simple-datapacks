@@ -6,7 +6,9 @@ import com.bizcub.simpleDatapacks.config.Configs;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -29,25 +31,24 @@ public abstract class MinecraftServerMixin {
     @Shadow @Final protected LevelStorageSource.LevelStorageAccess storageSource;
     @Shadow @Final private PackRepository packRepository;
 
-    @Inject(method="<init>", at=@At("TAIL"))
-    public void reload(CallbackInfo ci) {
+    @Inject(method = "<init>", at = @At("TAIL"))
+    public void reloadPacks(CallbackInfo ci) {
         reloadResources(packRepository.getSelectedIds());
     }
 
-    @Inject(method = "reloadResources", at = @At(value = "HEAD"))
+    @Redirect(method = "configurePackRepository", at = @At(value = "INVOKE", target = "Ljava/util/Set;add(Ljava/lang/Object;)Z", ordinal = 1))
+    private static boolean preventAutoLoading(Set<String> packs, Object pack) {
+        String packName = (String) pack;
+        if ((Compat.isClothConfigLoaded() && Configs.getInstance().globalDatapacks) || !packName.startsWith("file/")) return packs.add(packName);
+        return false;
+    }
+
+    @Inject(method = "reloadResources", at = @At("HEAD"))
     private void copyDatapacksInGame(CallbackInfoReturnable<CompletableFuture<Void>> cir) {
         if (packRepository != null) {
             Path path = this.storageSource.getLevelPath(LevelResource.DATAPACK_DIR);
             Collection<String> enabled = packRepository.getSelectedIds();
             SimpleDatapacks.copyDatapacks(path, new ArrayList<>(enabled));
         }
-    }
-
-    @Redirect(method = "configurePackRepository", at = @At(value = "INVOKE", target = "Ljava/util/Set;add(Ljava/lang/Object;)Z", ordinal = 1))
-    private static boolean preventAutoLoading(Set<String> packs, Object pack) {
-        String packName = (String) pack;
-
-        if ((Compat.isClothConfigLoaded() && Configs.getInstance().globalDatapacks) || !packName.startsWith("file/")) return packs.add(packName);
-        return false;
     }
 }

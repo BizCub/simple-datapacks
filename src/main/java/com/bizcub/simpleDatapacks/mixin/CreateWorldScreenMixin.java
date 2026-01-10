@@ -1,11 +1,16 @@
 package com.bizcub.simpleDatapacks.mixin;
 
+import com.bizcub.simpleDatapacks.AddProviders;
 import com.bizcub.simpleDatapacks.SimpleDatapacks;
+import com.bizcub.simpleDatapacks.config.Compat;
+import com.bizcub.simpleDatapacks.config.Configs;
+import net.minecraft.server.packs.repository.RepositorySource;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.nio.file.Path;
@@ -22,12 +27,21 @@ public abstract class CreateWorldScreenMixin {
     @Final @Shadow WorldCreationUiState uiState;
     @Shadow private PackRepository tempDataPackRepository;
 
-    @Inject(method = "removeTempDataPackDir", at = @At(value = "TAIL"))
-    private void copyDatapacksBeforeGame(CallbackInfo ci) {
+    @Inject(method = "removeTempDataPackDir", at = @At("TAIL"))
+    private void copyDatapacksBeforeGameStart(CallbackInfo ci) {
         if (tempDataPackRepository != null) {
             Path path = SimpleDatapacks.minecraftFolder.resolve("saves").resolve(uiState.getName()).resolve("datapacks");
             List<String> datapacks = new ArrayList<>(tempDataPackRepository.getSelectedIds());
             SimpleDatapacks.copyDatapacks(path, datapacks);
         }
+    }
+
+    @ModifyArg(at = @At(value = "INVOKE", target = "Lnet/minecraft/server/packs/repository/PackRepository;<init>([Lnet/minecraft/server/packs/repository/RepositorySource;)V"),
+        /*? >=1.21.2*/ method = "openCreateWorldScreen"
+        /*? <=1.21.1*/ /*method = "openFresh"*/
+    )
+    private static RepositorySource[] addProviders(RepositorySource[] args) {
+        if (Compat.isClothConfigLoaded() && Configs.getInstance().globalDatapacks) return AddProviders.add(args);
+        return args;
     }
 }

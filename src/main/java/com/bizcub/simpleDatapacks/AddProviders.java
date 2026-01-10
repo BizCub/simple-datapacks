@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.server.packs.repository.FolderRepositorySource;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.PackSource;
@@ -17,18 +18,20 @@ import net.minecraft.server.packs.repository.RepositorySource;
 public class AddProviders {
 
     //? >=1.20.2 {
-    public static RepositorySource[] add(RepositorySource[] arg, DirectoryValidator symlinkFinder) {
+    public static RepositorySource[] add(RepositorySource[] arg) {
+        DirectoryValidator validator = Minecraft.getInstance().directoryValidator();
+
         ArrayList<RepositorySource> providedDatapacks = new ArrayList<>(Arrays.asList(arg));
         if (Compat.isClothConfigLoaded()) {
             for (String path : Configs.getInstance().datapacksPaths) {
-                providedDatapacks.add(addProvider(Paths.get(path), symlinkFinder));
+                providedDatapacks.add(addProvider(Paths.get(path), validator));
             }
-        } else providedDatapacks.add(addProvider(Paths.get("datapacks"), symlinkFinder));
+        } else providedDatapacks.add(addProvider(Paths.get("datapacks"), validator));
         return providedDatapacks.toArray(new RepositorySource[0]);
     }
 
-    private static FolderRepositorySource addProvider(Path path, DirectoryValidator symlinkFinder) {
-        return new FolderRepositorySource(path, PackType.SERVER_DATA, PackSource.DEFAULT, symlinkFinder);
+    private static FolderRepositorySource addProvider(Path path, DirectoryValidator validator) {
+        return new FolderRepositorySource(path, PackType.SERVER_DATA, PackSource.DEFAULT, validator);
     }
 
     //?} <=1.20.1 {
