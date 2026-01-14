@@ -9,43 +9,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.server.packs.repository.FolderRepositorySource;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.repository.FolderRepositorySource;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.server.packs.repository.RepositorySource;
 /*? >=1.20.2*/ import net.minecraft.world.level.validation.DirectoryValidator;
 
 public class AddProviders {
 
-    //? >=1.20.2 {
     public static RepositorySource[] add(RepositorySource[] arg) {
-        DirectoryValidator validator = Minecraft.getInstance().directoryValidator();
-
         ArrayList<RepositorySource> providedDatapacks = new ArrayList<>(Arrays.asList(arg));
-        if (Compat.isClothConfigLoaded()) {
-            for (String path : Configs.getInstance().datapacksPaths) {
-                providedDatapacks.add(addProvider(Paths.get(path), validator));
-            }
-        } else providedDatapacks.add(addProvider(Paths.get("datapacks"), validator));
-        return providedDatapacks.toArray(new RepositorySource[0]);
-    }
-
-    private static FolderRepositorySource addProvider(Path path, DirectoryValidator validator) {
-        return new FolderRepositorySource(path, PackType.SERVER_DATA, PackSource.DEFAULT, validator);
-    }
-
-    //?} <=1.20.1 {
-    /*public static RepositorySource[] add(RepositorySource[] arg) {
-        ArrayList<RepositorySource> providedDatapacks = new ArrayList<>(Arrays.asList(arg));
-        if (Compat.isClothConfigLoaded()) {
-            for (String path : Configs.getInstance().datapacksPaths) {
+        if (Compat.isClothConfigLoaded())
+            for (String path : Configs.getInstance().datapacksPaths)
                 providedDatapacks.add(addProvider(Paths.get(path)));
-            }
-        } else providedDatapacks.add(addProvider(Paths.get("datapacks")));
+        else
+            providedDatapacks.add(addProvider(Paths.get("datapacks")));
         return providedDatapacks.toArray(new RepositorySource[0]);
     }
 
     private static FolderRepositorySource addProvider(Path path) {
-        return new FolderRepositorySource(path, PackType.SERVER_DATA, PackSource.DEFAULT);
-    }*///?}
+        //? >=1.20.2 {
+        DirectoryValidator validator = Minecraft.getInstance().directoryValidator();
+        return new FolderRepositorySource(path, PackType.SERVER_DATA, PackSource.DEFAULT, validator);
+        //?} <=1.20.1 {
+        /*return new FolderRepositorySource(path, PackType.SERVER_DATA, PackSource.DEFAULT);*///?}
+    }
 }
