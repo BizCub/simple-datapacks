@@ -1,6 +1,9 @@
 {
     "required": true,
     "package": "com.bizcub.simpleDatapacks.mixin",
+    "injectors": {
+        "defaultRequire": 1
+    },
     "mixins": [
         "MinecraftServerMixin",
         "ReloadCommandMixin",
@@ -8,8 +11,5 @@
     ],
     "client": [
         "CreateWorldScreenMixin"
-    ],
-    "injectors": {
-        "defaultRequire": 1
-  }
+    ]
 }
