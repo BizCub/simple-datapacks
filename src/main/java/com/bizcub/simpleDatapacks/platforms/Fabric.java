@@ -7,15 +7,18 @@ import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 
-public class Fabric implements ModInitializer, ModMenuApi {
+public class Fabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
         SimpleDatapacks.init(FabricLoader.getInstance().getGameDir());
     }
 
-    @Override
-    public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return PlatformInit::getScreen;
+    public static class ModMenu implements ModMenuApi {
+
+        @Override
+        public ConfigScreenFactory<?> getModConfigScreenFactory() {
+            return PlatformInit::getScreen;
+        }
     }
 }//?}
