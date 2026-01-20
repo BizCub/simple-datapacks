@@ -4,7 +4,7 @@ plugins {
     id("java")
 }
 
-base.archivesName.set("${mod.id}-$loader")
+base.archivesName.set("${mod.mixin}-$loader")
 version = "${mod.version}+${mod.pub_start}"
 
 java {

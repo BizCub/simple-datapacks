@@ -1,1 +1,1 @@
-* Now, if the "Global datapacks" option is enabled, datapacks are downloaded before world creation. This avoids the need to restart the world for some datapacks to work, which require a restart when added to the game.
+* Mod Menu and Cloth Config Api are optional dependencies again

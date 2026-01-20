@@ -14,7 +14,7 @@ import java.util.List;
 
 public class SimpleDatapacks {
 
-    public static final String modId = /*$ mod_id {*/"simple_datapacks"/*$}*/;
+    public static final String modId = /*$ mod_id*/ "simple_datapacks";
     public static Path minecraftFolder;
 
     public static void init(Path path) throws SecurityException {

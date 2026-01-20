@@ -38,7 +38,7 @@ public abstract class CreateWorldScreenMixin {
 
     @ModifyArg(at = @At(value = "INVOKE", target = "Lnet/minecraft/server/packs/repository/PackRepository;<init>([Lnet/minecraft/server/packs/repository/RepositorySource;)V"),
         /*? >=1.21.2*/ method = "openCreateWorldScreen"
-        /*? <=1.21.1*/ /*method = "openFresh"*/
+        /*? <=1.21.1*/ //method = "openFresh"
     )
     private static RepositorySource[] addProviders(RepositorySource[] args) {
         if (Compat.isClothConfigLoaded() && Configs.getInstance().globalDatapacks) return AddProviders.add(args);
