@@ -28,6 +28,8 @@ public class Configs implements ConfigData {
 
     public List<String> datapacksPaths = new ArrayList<>(Arrays.asList("datapacks", System.getProperty("user.home") + "\\Downloads"));
 
+    public List<String> datapacksPaths1 = new ArrayList<>(Arrays.asList("datapackss"));
+
     public static Configs getInstance() {
         return AutoConfig.getConfigHolder(Configs.class).getConfig();
     }

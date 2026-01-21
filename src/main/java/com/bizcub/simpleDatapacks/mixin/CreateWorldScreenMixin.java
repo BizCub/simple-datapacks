@@ -22,7 +22,7 @@ import net.minecraft.client.gui.screens.worldselection.WorldCreationUiState;
 import net.minecraft.server.packs.repository.PackRepository;
 
 @Mixin(CreateWorldScreen.class)
-public abstract class CreateWorldScreenMixin {
+public class CreateWorldScreenMixin {
 
     @Final @Shadow WorldCreationUiState uiState;
     @Shadow private PackRepository tempDataPackRepository;
@@ -41,7 +41,7 @@ public abstract class CreateWorldScreenMixin {
         /*? <=1.21.1*/ //method = "openFresh"
     )
     private static RepositorySource[] addProviders(RepositorySource[] args) {
-        if (Compat.isClothConfigLoaded() && Configs.getInstance().globalDatapacks) return AddProviders.add(args);
+        if (Compat.isClothConfigLoaded()) return AddProviders.add(args, true);
         return args;
     }
 }

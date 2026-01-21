@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,19 +37,33 @@ public abstract class MinecraftServerMixin {
         reloadResources(packRepository.getSelectedIds());
     }
 
-    @Redirect(method = "configurePackRepository", at = @At(value = "INVOKE", target = "Ljava/util/Set;add(Ljava/lang/Object;)Z", ordinal = 1))
-    private static boolean preventAutoLoading(Set<String> packs, Object pack) {
-        String packName = (String) pack;
-        if ((Compat.isClothConfigLoaded() && Configs.getInstance().globalDatapacks) || !packName.startsWith("file/")) return packs.add(packName);
-        return false;
-    }
-
     @Inject(method = "reloadResources", at = @At("HEAD"))
     private void copyDatapacksInGame(CallbackInfoReturnable<CompletableFuture<Void>> cir) {
         if (packRepository != null) {
-            Path path = this.storageSource.getLevelPath(LevelResource.DATAPACK_DIR);
+            Path path = storageSource.getLevelPath(LevelResource.DATAPACK_DIR);
             Collection<String> enabled = packRepository.getSelectedIds();
             SimpleDatapacks.copyDatapacks(path, new ArrayList<>(enabled));
         }
+    }
+
+    @Redirect(method = "configurePackRepository", at = @At(value = "INVOKE", target = "Ljava/util/Set;add(Ljava/lang/Object;)Z", ordinal = 1))
+    private static boolean preventAutoLoading(Set<String> packs, Object pack) {
+        String packName = (String) pack;
+        if (!packName.startsWith("file/")) {
+            return packs.add(packName);
+        }
+        if (Compat.isClothConfigLoaded()) {
+            for (String path : Configs.getInstance().datapacksPaths1) {
+                File[] files = new File(path).listFiles();
+                if (files != null) {
+                    for (File file : files) {
+                        if (file.getName().equals(packName.substring(5))) {
+                            return packs.add(packName);
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 }
