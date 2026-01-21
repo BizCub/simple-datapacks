@@ -1,14 +1,14 @@
 {
   "text.autoconfig.simple_datapacks.title": "Simple Datapacks Settings",
-  "text.autoconfig.simple_datapacks.option.datapacksPaths": "Paths to datapack folders",
+
   "text.autoconfig.simple_datapacks.option.copyDatapacks": "Copy datapacks",
-  "text.autoconfig.simple_datapacks.option.copyDatapacks.@Tooltip": "Whether to copy datasets to the world when selecting them",
+  "text.autoconfig.simple_datapacks.option.copyDatapacks.@Tooltip": "Whether to copy datapacks to the world directory when selecting them",
   "text.autoconfig.simple_datapacks.option.showFeatures": "Show features",
   "text.autoconfig.simple_datapacks.option.showFeatures.@Tooltip": "Whether to show experimental datapacks",
-  "text.autoconfig.simple_datapacks.option.globalDatapacks": "Global datapacks",
-  "text.autoconfig.simple_datapacks.option.globalDatapacks.@Tooltip": "Will all new data packs be used in the game immediately?",
   "text.autoconfig.simple_datapacks.option.sendRestartWarning": "Send a warning",
   "text.autoconfig.simple_datapacks.option.sendRestartWarning.@Tooltip": "Send a warning about the need to restart the world?",
+  "text.autoconfig.simple_datapacks.option.requiredDatapacksPaths": "Paths to required datapack folders",
+  "text.autoconfig.simple_datapacks.option.optionalDatapacksPaths": "Paths to optional datapack folders",
 
   "commands.reload.reload_needed": "You may need to restart the world (if there are datapacks that require it)"
 }

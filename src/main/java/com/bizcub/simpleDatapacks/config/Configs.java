@@ -14,27 +14,18 @@ import java.util.List;
 @Config(name = SimpleDatapacks.modId)
 public class Configs implements ConfigData {
 
-    @Tooltip
-    public boolean copyDatapacks = false;
-
-    @Tooltip
-    public boolean showFeatures = true;
-
-    @Tooltip
-    public boolean globalDatapacks = false;
-
-    @Tooltip
-    public boolean sendRestartWarning = true;
-
-    public List<String> datapacksPaths = new ArrayList<>(Arrays.asList("datapacks", System.getProperty("user.home") + "\\Downloads"));
-
-    public List<String> datapacksPaths1 = new ArrayList<>(Arrays.asList("datapackss"));
+    public static void init() {
+        AutoConfig.register(Configs.class, GsonConfigSerializer::new);
+    }
 
     public static Configs getInstance() {
         return AutoConfig.getConfigHolder(Configs.class).getConfig();
     }
 
-    public static void init() {
-        AutoConfig.register(Configs.class, GsonConfigSerializer::new);
-    }
+    @Tooltip public boolean copyDatapacks = false;
+    @Tooltip public boolean showFeatures = true;
+    @Tooltip public boolean sendRestartWarning = true;
+
+    public List<String> requiredDatapacksPaths = new ArrayList<>();
+    public List<String> optionalDatapacksPaths = new ArrayList<>(Arrays.asList("datapacks", System.getProperty("user.home") + "\\Downloads"));
 }

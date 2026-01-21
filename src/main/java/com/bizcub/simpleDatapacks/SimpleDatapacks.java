@@ -17,8 +17,7 @@ public class SimpleDatapacks {
     public static final String modId = /*$ mod_id*/ "simple_datapacks";
     public static Path minecraftFolder;
 
-    public static void init(Path path) throws SecurityException {
-        path.toFile().mkdirs();
+    public static void init(Path path) {
         minecraftFolder = path;
         if (Compat.isClothConfigLoaded()) Configs.init();
     }
@@ -26,7 +25,7 @@ public class SimpleDatapacks {
     public static void copyDatapacks(Path dest, List<String> rawDatapacks) {
         if (!(Compat.isClothConfigLoaded() && Configs.getInstance().copyDatapacks)) return;
 
-        for (String path : Configs.getInstance().datapacksPaths) {
+        for (String path : Configs.getInstance().optionalDatapacksPaths) {
             Path src = Paths.get(path);
 
             List<String> datapacks = new ArrayList<>();

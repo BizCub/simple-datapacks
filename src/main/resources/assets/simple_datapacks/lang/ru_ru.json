@@ -1,0 +1,16 @@
+{
+  "text.autoconfig.simple_datapacks.title": "Настройки Simple Datapacks",
+
+  "text.autoconfig.simple_datapacks.option.copyDatapacks": "Копировать пакеты данных",
+  "text.autoconfig.simple_datapacks.option.copyDatapacks.@Tooltip": "Копировать ли наборы данных в мир при их выборе",
+  "text.autoconfig.simple_datapacks.option.showFeatures": "Показать эксперименты",
+  "text.autoconfig.simple_datapacks.option.showFeatures.@Tooltip": "Показывать ли экспериментальные пакеты данных",
+  "text.autoconfig.simple_datapacks.option.sendRestartWarning": "Отправить предупреждение",
+  "text.autoconfig.simple_datapacks.option.sendRestartWarning.@Tooltip": "Отправить предупреждение о необходимости перезапуска мира?",
+  "text.autoconfig.simple_datapacks.option.requiredDatapacksPaths": "Пути к обязательным папкам с пакетами данных",
+  "text.autoconfig.simple_datapacks.option.optionalDatapacksPaths": "Пути к необязательным папкам с пакетами данных",
+
+  "commands.reload.reload_needed": "Возможно, потребуется перезапустить мир (если есть пакеты данных, которые этого требуют)",
+
+  "modmenu.descriptionTranslation.simple_datapacks": "Этот мод упрощает использование датапаков для тех, кто хочет устанавливать их без лишних хлопот и наслаждаться игрой"
+}

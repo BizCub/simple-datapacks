@@ -49,11 +49,13 @@ public abstract class MinecraftServerMixin {
     @Redirect(method = "configurePackRepository", at = @At(value = "INVOKE", target = "Ljava/util/Set;add(Ljava/lang/Object;)Z", ordinal = 1))
     private static boolean preventAutoLoading(Set<String> packs, Object pack) {
         String packName = (String) pack;
+
         if (!packName.startsWith("file/")) {
             return packs.add(packName);
         }
+
         if (Compat.isClothConfigLoaded()) {
-            for (String path : Configs.getInstance().datapacksPaths1) {
+            for (String path : Configs.getInstance().requiredDatapacksPaths) {
                 File[] files = new File(path).listFiles();
                 if (files != null) {
                     for (File file : files) {
@@ -64,6 +66,7 @@ public abstract class MinecraftServerMixin {
                 }
             }
         }
+
         return false;
     }
 }
