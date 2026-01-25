@@ -1,13 +1,13 @@
 plugins {
     `multiloader-loader`
-    id("dev.architectury.loom") version "1.+"
     id("architectury-plugin") version "3.+"
+    id("dev.architectury.loom") version "1.+"
     id("me.modmuss50.mod-publish-plugin") version "1.+"
 }
 
 stonecutter {
     swaps["mod_id"] = "\"${prop("mod.id")}\";"
-    constants.match(loader, "fabric", "forge", "neoforge")
+    constants.match(mod.loader, "fabric", "forge", "neoforge")
     constants["is_cloth_config_available"] = isClothConfigAvailable
 }
 
@@ -19,17 +19,17 @@ repositories {
 dependencies {
     minecraft("com.mojang:minecraft:${mod.propIfExist("mc.snapshot", mod.mc)}")
     mappings(loom.officialMojangMappings())
-    modApi("me.shedaniel.cloth:cloth-config-$loader:${mod.cloth_config}")
+    modApi("me.shedaniel.cloth:cloth-config-${mod.loader}:${mod.cloth_config}")
 
     if (isFabric) {
         modImplementation("net.fabricmc:fabric-loader:latest.release")
         modImplementation("com.terraformersmc:modmenu:${mod.modmenu}")
     }
     if (isForge) {
-        "forge"("net.minecraftforge:forge:${mod.mc}-${mod.dep("forge_loader")}")
+        "forge"("net.minecraftforge:forge:${mod.mc}-${dep("forge_loader")}")
     }
     if (isNeoForge) {
-        "neoForge"("net.neoforged:neoforge:${mod.dep("neoforge_loader")}")
+        "neoForge"("net.neoforged:neoforge:${dep("neoforge_loader")}")
     }
 }
 
@@ -47,13 +47,13 @@ loom {
 }
 
 publishMods {
-    fun tokenDir(tokenName: String) = file("C:\\Tokens\\$tokenName.txt").readText()
+    fun tokenDir(token: String) = file("C:\\Tokens\\$token.txt").readText()
     file.set(tasks.remapJar.get().archiveFile)
-    displayName = "${mod.name} ${loader.upperCaseFirst()} ${mod.pub_start} v${mod.version}"
+    displayName = "${mod.name} ${mod.loader.upperCaseFirst()} ${mod.pub_start} v${mod.version}"
     changelog = rootProject.file("CHANGELOG.md").readText()
     version = mod.version
     type = STABLE
-    modLoaders.add(loader)
+    modLoaders.add(mod.loader)
     if (isFabric) modLoaders.add("quilt")
 
     modrinth {
@@ -81,7 +81,7 @@ publishMods {
         accessToken = tokenDir("github")
         repository = "BizCub/${mod.github}"
         commitish = "master"
-        tagName = "v${mod.version}-$loader+${mod.pub_start}"
+        tagName = "v${mod.version}-${mod.loader}+${mod.pub_start}"
     }
 }
 
