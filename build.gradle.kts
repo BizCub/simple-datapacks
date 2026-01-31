@@ -6,10 +6,9 @@ plugins {
 
 stonecutter {
     constants.match(mod.loader, "fabric", "forge", "neoforge")
+    constants["is_cloth_config_available"] = isClothConfigAvailable
 
     swaps["mod_id"] = "\"${prop("mod.id")}\";"
-
-    constants["is_cloth_config_available"] = isClothConfigAvailable
 
     replacements.string(scp >= "1.21.2") {
         replace("openFresh", "openCreateWorldScreen")
