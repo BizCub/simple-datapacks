@@ -3,7 +3,6 @@ package com.bizcub.simpleDatapacks.mixin;
 import com.bizcub.simpleDatapacks.AddProviders;
 import com.bizcub.simpleDatapacks.SimpleDatapacks;
 import com.bizcub.simpleDatapacks.config.Compat;
-import com.bizcub.simpleDatapacks.config.Configs;
 import net.minecraft.server.packs.repository.RepositorySource;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -36,10 +35,7 @@ public class CreateWorldScreenMixin {
         }
     }
 
-    @ModifyArg(at = @At(value = "INVOKE", target = "Lnet/minecraft/server/packs/repository/PackRepository;<init>([Lnet/minecraft/server/packs/repository/RepositorySource;)V"),
-        /*? >=1.21.2*/ method = "openCreateWorldScreen"
-        /*? <=1.21.1*/ //method = "openFresh"
-    )
+    @ModifyArg(method = "openCreateWorldScreen", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/packs/repository/PackRepository;<init>([Lnet/minecraft/server/packs/repository/RepositorySource;)V"))
     private static RepositorySource[] addProviders(RepositorySource[] args) {
         if (Compat.isClothConfigLoaded()) return AddProviders.add(args, true);
         return args;

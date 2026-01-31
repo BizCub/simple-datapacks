@@ -3,6 +3,10 @@ package com.bizcub.simpleDatapacks.mixin;
 import com.bizcub.simpleDatapacks.SimpleDatapacks;
 import com.bizcub.simpleDatapacks.config.Compat;
 import com.bizcub.simpleDatapacks.config.Configs;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.packs.repository.PackRepository;
+import net.minecraft.world.level.storage.LevelResource;
+import net.minecraft.world.level.storage.LevelStorageSource;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,18 +23,13 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.packs.repository.PackRepository;
-import net.minecraft.world.level.storage.LevelResource;
-import net.minecraft.world.level.storage.LevelStorageSource;
-
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin {
 
-    @Shadow public abstract CompletableFuture<Void> reloadResources(Collection<String> dataPacks);
-
     @Shadow @Final protected LevelStorageSource.LevelStorageAccess storageSource;
     @Shadow @Final private PackRepository packRepository;
+
+    @Shadow public abstract CompletableFuture<Void> reloadResources(Collection<String> dataPacks);
 
     @Inject(method = "<init>", at = @At("TAIL"))
     public void reloadPacks(CallbackInfo ci) {
