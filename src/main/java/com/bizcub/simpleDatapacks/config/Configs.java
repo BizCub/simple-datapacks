@@ -23,7 +23,8 @@ public class Configs implements ConfigData {
     }
 
     @Tooltip public boolean copyDatapacks = false;
-    @Tooltip public boolean showFeatures = true;
+    @Tooltip public boolean enableFeatures = true;
+    @Tooltip(count = 2) public boolean globalFeatures = false;
     @Tooltip public boolean sendRestartWarning = true;
 
     public List<String> requiredDatapacksPaths = new ArrayList<>();

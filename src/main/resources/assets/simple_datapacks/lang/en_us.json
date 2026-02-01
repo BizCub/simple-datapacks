@@ -3,10 +3,13 @@
 
   "text.autoconfig.simple_datapacks.option.copyDatapacks": "Copy datapacks",
   "text.autoconfig.simple_datapacks.option.copyDatapacks.@Tooltip": "Whether to copy datapacks to the world directory when selecting them",
-  "text.autoconfig.simple_datapacks.option.showFeatures": "Show features",
-  "text.autoconfig.simple_datapacks.option.showFeatures.@Tooltip": "Whether to show experimental datapacks",
+  "text.autoconfig.simple_datapacks.option.enableFeatures": "Enable features",
+  "text.autoconfig.simple_datapacks.option.enableFeatures.@Tooltip": "Whether to enable experimental datapacks",
+  "text.autoconfig.simple_datapacks.option.globalFeatures": "Global features",
+  "text.autoconfig.simple_datapacks.option.globalFeatures.@Tooltip[0]": "Should features be used globally?",
+  "text.autoconfig.simple_datapacks.option.globalFeatures.@Tooltip[1]": "(Works when features are enabled)",
   "text.autoconfig.simple_datapacks.option.sendRestartWarning": "Send a warning",
-  "text.autoconfig.simple_datapacks.option.sendRestartWarning.@Tooltip": "Send a warning about the need to restart the world?",
+  "text.autoconfig.simple_datapacks.option.sendRestartWarning.@Tooltip": "Send a warning about restarting the world?",
   "text.autoconfig.simple_datapacks.option.requiredDatapacksPaths": "Paths to required datapack folders",
   "text.autoconfig.simple_datapacks.option.optionalDatapacksPaths": "Paths to optional datapack folders",
 

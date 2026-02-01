@@ -16,6 +16,7 @@ public class SimpleDatapacks {
 
     public static final String modId = /*$ mod_id*/ "simple_datapacks";
     public static Path minecraftFolder;
+    public static List<String> features = new ArrayList<>();
 
     public static void init(Path path) {
         minecraftFolder = path;
