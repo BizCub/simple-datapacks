@@ -37,7 +37,7 @@ public abstract class MinecraftServerMixin {
     }
 
     @Inject(method = "reloadResources", at = @At("HEAD"))
-    private void copyDatapacksInGame(CallbackInfoReturnable<CompletableFuture<Void>> cir) {
+    private void copyDatapacks(CallbackInfoReturnable<CompletableFuture<Void>> cir) {
         if (packRepository != null) {
             Path path = storageSource.getLevelPath(LevelResource.DATAPACK_DIR);
             Collection<String> enabled = packRepository.getSelectedIds();

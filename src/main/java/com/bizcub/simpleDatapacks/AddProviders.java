@@ -19,8 +19,8 @@ public class AddProviders {
         ArrayList<RepositorySource> providedDatapacks = new ArrayList<>(Arrays.asList(arg));
         if (Compat.isClothConfigLoaded()) {
             List<String> paths;
-            if (required) paths = Configs.getInstance().optionalDatapacksPaths;
-            else paths = Configs.getInstance().requiredDatapacksPaths;
+            if (required) paths = Configs.getInstance().requiredDatapacksPaths;
+            else paths = Configs.getInstance().optionalDatapacksPaths;
 
             paths.forEach(path -> providedDatapacks.add(addProvider(path)));
         } else

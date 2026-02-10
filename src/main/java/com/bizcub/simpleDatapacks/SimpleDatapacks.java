@@ -26,7 +26,11 @@ public class SimpleDatapacks {
     public static void copyDatapacks(Path dest, List<String> rawDatapacks) {
         if (!(Compat.isClothConfigLoaded() && Configs.getInstance().copyDatapacks)) return;
 
-        for (String path : Configs.getInstance().optionalDatapacksPaths) {
+        List<String> allPaths = new ArrayList<>();
+        allPaths.addAll(Configs.getInstance().optionalDatapacksPaths);
+        allPaths.addAll(Configs.getInstance().requiredDatapacksPaths);
+
+        for (String path : allPaths) {
             Path src = Paths.get(path);
 
             List<String> datapacks = new ArrayList<>();
