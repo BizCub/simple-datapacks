@@ -4,12 +4,12 @@ The purpose of this mod is to simplify the ways of adding datapacks to the game.
 
 ![preview](https://cdn.modrinth.com/data/cached_images/aac4947bab69e5d28ce8e91126425c668ad098b3_0.webp)
 
-My goal is to make a mod that will help players with installing datapacks into the game so that they can get a new portion of unforgettable impressions. But since my mod was released recently, it is possible that it may contain errors, so please notify me about this on GitHub in the issues section.
+My goal is to make a mod that will help players with installing datapacks into the game so that they can get a new portion of unforgettable impressions.
 
 ## 💼 Usage
 ![preview](https://cdn.modrinth.com/data/cached_images/67e81fe573cd8bbf52e67a8871a54acbdf88f65d_0.webp)
 
-In order to launch a world with datapacks, you need to download any datapack that is compatible with the selected version of Minecraft, open and place the datapack in the datapacks folder, start creating a world and select the desired datapack from the list. Or in the mod settings specify the path to the downloads folder ```C:\Users\{USERNAME}\Downloads``` (presumable path) and simply open the datapack selection menu and enable the desired
+In order to launch a world with datapacks, you need to download any datapack that is compatible with the selected version of Minecraft, open and place the datapack in the datapacks folder, start creating a world and select the desired datapack from the list. However, when using Cloth Config, the mod settings specify the path to the downloads folder, so to use datapacks, you only need to download them, then simply open the datapack selection menu and enable the desired one.
 
 ## ✨ Features
 Whenever possible, I added the most basic features for the mod that I could imagine.
@@ -21,11 +21,15 @@ Whenever possible, I added the most basic features for the mod that I could imag
 
 * The mod has a configuration. The values used by the mod can be changed in the mod menu (Fabric requires ModMenu), and can also be changed in the configuration file, which is available using the Cloth Config API.
 
-* The mod allows players to add and load datapacks from different folders. To change the sources of these packs, you need to configure them in the mod settings. If you want to specify a folder in the game's root directory, for example, my_datapacks instead of the full path ```C:\Users\{USERNAME}\AppData\Roaming\.minecraft\my_datapacks```, simply enter the folder name in the field in the mod settings menu. By default, datapacks are loaded from the datapacks folder in the root directory and the downloads folder, allowing them to appear in the game immediately after installation (provided Cloth Config API is loaded; otherwise, only the datapacks folder will be used).
+* The mod allows players to add and load datapacks from different folders. To change the sources of these packs, you need to configure them in the mod settings. If you want to specify a folder in the game's root directory, for example, ```my_datapacks``` instead of the full path ```C:\Users\{USERNAME}\AppData\Roaming\.minecraft\my_datapacks```, simply enter the folder name in the field in the mod settings menu.
+
+* By default, datapacks are loaded from the datapacks folder in the root directory and the downloads folder, allowing them to appear in the game immediately after installation (provided Cloth Config API is loaded; otherwise, only the datapacks folder will be used).
 
 * The mod settings have two lists: one for required and one for optional datapacks. The first list specifies the paths to datapacks that are automatically applied when entering a world. The second list contains datapacks that remain inactive but can be enabled at any time using the ```/datapack enable``` command.
 
-* It's possible to disable feature packs (experimental datapacks). If you don't use feature packs, you can disable them to save space on the datapack selection screen.
+* The Simple Datapacks mod runs on the server. Since the mod settings are not accessible on the server, it automatically uses all datapacks from the datapacks folder.
+
+* It's possible to disable feature packs (experimental datapacks). If you don't use feature packs, you can disable them to save space on the datapack selection screen. In the mod settings, function packages can be set to required, and then they will be applied when the world starts.
 
 * Unlike similar mods, datapacks will continue to work in the world, even if you disable the mod. In the mod settings, you can enable copying datapacks to the world folder. In this case, the datapack will work without the mod, because the game will read it from the world.
 
