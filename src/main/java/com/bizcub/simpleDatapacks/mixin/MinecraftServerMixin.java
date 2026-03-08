@@ -24,17 +24,10 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 @Mixin(MinecraftServer.class)
-public abstract class MinecraftServerMixin {
+public class MinecraftServerMixin {
 
     @Shadow @Final protected LevelStorageSource.LevelStorageAccess storageSource;
     @Shadow @Final private PackRepository packRepository;
-
-    @Shadow public abstract CompletableFuture<Void> reloadResources(Collection<String> dataPacks);
-
-    @Inject(method = "<init>", at = @At("TAIL"))
-    public void reloadPacks(CallbackInfo ci) {
-        reloadResources(packRepository.getSelectedIds());
-    }
 
     @Inject(method = "reloadResources", at = @At("HEAD"))
     private void copyDatapacks(CallbackInfoReturnable<CompletableFuture<Void>> cir) {
