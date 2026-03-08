@@ -4,4 +4,4 @@
 * To use the mod as before with the Global Datapacks option enabled, you need to move the ```datapacks``` path from optional datapacks to required datapacks
 
 ### New changes
-* Fixed loading of embedded datapacks in Forge/Neoforge
+* Fixed loading of embedded datapacks in Forge/Neoforge 
