@@ -15,10 +15,10 @@
     },
     "entrypoints": {
         "main": [
-            "com.bizcub.simpleDatapacks.platforms.Fabric"
+            "com.bizcub.simpleDatapacks.platform.Fabric"
         ],
         "modmenu": [
-            "com.bizcub.simpleDatapacks.platforms.Fabric$ModMenu"
+            "com.bizcub.simpleDatapacks.platform.Fabric$ModMenu"
         ]
     },
     "mixins": [

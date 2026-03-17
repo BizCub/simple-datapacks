@@ -7,7 +7,7 @@ plugins {
     id("org.jetbrains.gradle.plugin.idea-ext") version "1.3"
 }
 
-stonecutter active "1.21.9-fabric"
+stonecutter active "1.21.10-fabric"
 
 idea.project.settings.runConfigurations {
     register<Gradle>("0 Run Client") { taskNames = listOf("runActiveClient") }

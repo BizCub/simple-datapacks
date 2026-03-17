@@ -1,19 +1,22 @@
 plugins {
-    `multiloader-loader`
+    multiloader
     id("dev.architectury.loom") version "1.+"
     id("me.modmuss50.mod-publish-plugin") version "1.+"
 }
 
 stonecutter {
+    val (version, loader) = current.project.split('-', limit = 2)
+    properties.tags(version, loader)
     constants.match(mod.loader, "fabric", "forge", "neoforge")
-    constants["is_cloth_config_available"] = isClothConfigAvailable
-
     swaps["mod_id"] = "\"${prop("mod.id")}\";"
+    constants["is_cloth_config_available"] = isClothConfigAvailable
 
     replacements.string(scp >= "1.21.2") {
         replace("openFresh", "openCreateWorldScreen")
     }
 }
+
+loom.silentMojangMappingsLicense()
 
 repositories {
     maven("https://maven.neoforged.net/releases")
@@ -22,19 +25,19 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:${mod.propIfExist("mc.snapshot", mod.mc)}")
+    minecraft("com.mojang:minecraft:${propIf("version", mod.mc)}")
     mappings(loom.officialMojangMappings())
-    modApi("me.shedaniel.cloth:cloth-config-${mod.loader}:${mod.cloth_config}")
+    modApi("me.shedaniel.cloth:cloth-config-${mod.loader}:${getProp("cloth_config")}")
 
     if (isFabric) {
         modImplementation("net.fabricmc:fabric-loader:latest.release")
-        modImplementation("com.terraformersmc:modmenu:${mod.modmenu}")
+        modImplementation("com.terraformersmc:modmenu:${getProp("modmenu")}")
     }
     if (isForge) {
-        "forge"("net.minecraftforge:forge:${mod.mc}-${dep("forge_loader")}")
+        "forge"("net.minecraftforge:forge:${getProp("forge")}")
     }
     if (isNeoForge) {
-        "neoForge"("net.neoforged:neoforge:${dep("neoforge_loader")}")
+        "neoForge"("net.neoforged:neoforge:${getProp("neoforge")}")
     }
 }
 

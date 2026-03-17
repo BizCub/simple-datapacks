@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Config(name = SimpleDatapacks.modId)
+@Config(name = SimpleDatapacks.MOD_ID)
 public class Configs implements ConfigData {
 
     public static void init() {

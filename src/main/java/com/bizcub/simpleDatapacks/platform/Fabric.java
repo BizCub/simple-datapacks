@@ -1,5 +1,5 @@
 //? fabric {
-package com.bizcub.simpleDatapacks.platforms;
+package com.bizcub.simpleDatapacks.platform;
 
 import com.bizcub.simpleDatapacks.SimpleDatapacks;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;

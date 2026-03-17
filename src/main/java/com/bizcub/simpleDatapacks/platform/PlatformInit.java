@@ -1,4 +1,4 @@
-package com.bizcub.simpleDatapacks.platforms;
+package com.bizcub.simpleDatapacks.platform;
 
 import com.bizcub.simpleDatapacks.config.Configs;
 import me.shedaniel.autoconfig.AutoConfig;
