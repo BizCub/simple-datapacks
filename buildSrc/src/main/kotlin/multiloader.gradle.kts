@@ -2,10 +2,12 @@ plugins {
     id("java")
 }
 
-if (isNeoForge) {
-    val neoVersion = mod.mc.substring(2)
-    val neoLoader = getProp("neoforge")
-    setProp("neoforge", if (neoVersion.contains(".")) "$neoVersion.$neoLoader" else "$neoVersion.0.$neoLoader")
+sc.constants["is_cloth_config_available"] = isClothConfigAvailable
+
+sc.replacements {
+    string(scp >= "1.21.2") {
+        replace("openFresh", "openCreateWorldScreen")
+    }
 }
 
 if (isForge) {
@@ -14,6 +16,12 @@ if (isForge) {
     if (!isClothConfigAvailable) {
         setProp("cloth_config", "17.0.144")
     }
+}
+
+if (isNeoForge) {
+    val neoVersion = mod.mc.substring(2)
+    val neoLoader = getProp("neoforge")
+    setProp("neoforge", if (neoVersion.contains(".")) "$neoVersion.$neoLoader" else "$neoVersion.0.$neoLoader")
 }
 
 project.extra["loom.platform"] = mod.loader
@@ -51,5 +59,6 @@ java {
         scp >= "1.17"   -> 16
         else            -> 8
     }
-    toolchain.languageVersion = JavaLanguageVersion.of(java)
+    targetCompatibility = JavaVersion.toVersion(java)
+    sourceCompatibility = JavaVersion.toVersion(java)
 }

@@ -1,31 +1,36 @@
 package com.bizcub.simpleDatapacks.config;
 
 import com.bizcub.simpleDatapacks.SimpleDatapacks;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Tooltip;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+//import me.shedaniel.autoconfig.AutoConfig;
+//import me.shedaniel.autoconfig.ConfigData;
+//import me.shedaniel.autoconfig.annotation.Config;
+//import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Tooltip;
+//import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Config(name = SimpleDatapacks.MOD_ID)
-public class Configs implements ConfigData {
+//@Config(name = SimpleDatapacks.MOD_ID)
+public class Configs /*implements ConfigData*/ {
 
     public static void init() {
-        AutoConfig.register(Configs.class, GsonConfigSerializer::new);
+//        AutoConfig.register(Configs.class, GsonConfigSerializer::new);
     }
 
-    public static Configs getInstance() {
-        return AutoConfig.getConfigHolder(Configs.class).getConfig();
-    }
+//    public static Configs getInstance() {
+//        return AutoConfig.getConfigHolder(Configs.class).getConfig();
+//    }
 
-    @Tooltip public boolean copyDatapacks = false;
-    @Tooltip public boolean enableFeatures = true;
-    @Tooltip(count = 2) public boolean globalFeatures = false;
-    @Tooltip public boolean sendRestartWarning = true;
+//    @Tooltip public boolean copyDatapacks = false;
+//    @Tooltip public boolean enableFeatures = true;
+//    @Tooltip(count = 2) public boolean globalFeatures = false;
+//    @Tooltip public boolean sendRestartWarning = true;
+
+    public boolean copyDatapacks = false;
+    public boolean enableFeatures = true;
+    public boolean globalFeatures = false;
+    public boolean sendRestartWarning = true;
 
     public List<String> requiredDatapacksPaths = new ArrayList<>();
     public List<String> optionalDatapacksPaths = new ArrayList<>(Arrays.asList("datapacks", System.getProperty("user.home") + "\\Downloads"));

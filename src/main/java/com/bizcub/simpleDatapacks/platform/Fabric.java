@@ -2,8 +2,8 @@
 package com.bizcub.simpleDatapacks.platform;
 
 import com.bizcub.simpleDatapacks.SimpleDatapacks;
-import com.terraformersmc.modmenu.api.ConfigScreenFactory;
-import com.terraformersmc.modmenu.api.ModMenuApi;
+//import com.terraformersmc.modmenu.api.ConfigScreenFactory;
+//import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -14,11 +14,11 @@ public class Fabric implements ModInitializer {
         SimpleDatapacks.init(FabricLoader.getInstance().getGameDir());
     }
 
-    public static class ModMenu implements ModMenuApi {
-
-        @Override
-        public ConfigScreenFactory<?> getModConfigScreenFactory() {
-            return PlatformInit::getScreen;
-        }
-    }
+//    public static class ModMenu implements ModMenuApi {
+//
+//        @Override
+//        public ConfigScreenFactory<?> getModConfigScreenFactory() {
+//            return PlatformInit::getScreen;
+//        }
+//    }
 }//?}

@@ -22,8 +22,8 @@ public class ServerPacksSourceMixin {
         return args;
     }
 
-    @Inject(method = "createBuiltinPack", at = @At("HEAD"), cancellable = true)
-    private void removeFeatures(CallbackInfoReturnable<Pack> cir) {
-        if (Compat.isClothConfigLoaded() && !Configs.getInstance().enableFeatures) cir.cancel();
-    }
+//    @Inject(method = "createBuiltinPack", at = @At("HEAD"), cancellable = true)
+//    private void removeFeatures(CallbackInfoReturnable<Pack> cir) {
+//        if (Compat.isClothConfigLoaded() && !Configs.getInstance().enableFeatures) cir.cancel();
+//    }
 }

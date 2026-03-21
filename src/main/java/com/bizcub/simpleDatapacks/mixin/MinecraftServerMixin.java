@@ -46,18 +46,18 @@ public class MinecraftServerMixin {
             return packs.add(packName);
         }
 
-        if (Compat.isClothConfigLoaded()) {
-            for (String path : Configs.getInstance().requiredDatapacksPaths) {
-                File[] files = new File(path).listFiles();
-                if (files != null) {
-                    for (File file : files) {
-                        if (file.getName().equals(packName.substring(5))) {
-                            return packs.add(packName);
-                        }
-                    }
-                }
-            }
-        }
+//        if (Compat.isClothConfigLoaded()) {
+//            for (String path : Configs.getInstance().requiredDatapacksPaths) {
+//                File[] files = new File(path).listFiles();
+//                if (files != null) {
+//                    for (File file : files) {
+//                        if (file.getName().equals(packName.substring(5))) {
+//                            return packs.add(packName);
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
         return false;
     }

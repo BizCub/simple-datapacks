@@ -4,18 +4,6 @@ plugins {
     id("me.modmuss50.mod-publish-plugin") version "1.+"
 }
 
-stonecutter {
-    val (version, loader) = current.project.split('-', limit = 2)
-    properties.tags(version, loader)
-    constants.match(mod.loader, "fabric", "forge", "neoforge")
-    swaps["mod_id"] = "\"${prop("mod.id")}\";"
-    constants["is_cloth_config_available"] = isClothConfigAvailable
-
-    replacements.string(scp >= "1.21.2") {
-        replace("openFresh", "openCreateWorldScreen")
-    }
-}
-
 loom.silentMojangMappingsLicense()
 
 repositories {

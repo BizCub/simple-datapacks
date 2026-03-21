@@ -18,11 +18,11 @@ public class AddProviders {
     public static RepositorySource[] add(RepositorySource[] arg, boolean required) {
         ArrayList<RepositorySource> providedDatapacks = new ArrayList<>(Arrays.asList(arg));
         if (Compat.isClothConfigLoaded()) {
-            List<String> paths;
-            if (required) paths = Configs.getInstance().requiredDatapacksPaths;
-            else paths = Configs.getInstance().optionalDatapacksPaths;
-
-            paths.forEach(path -> providedDatapacks.add(addProvider(path)));
+//            List<String> paths;
+//            if (required) paths = Configs.getInstance().requiredDatapacksPaths;
+//            else paths = Configs.getInstance().optionalDatapacksPaths;
+//
+//            paths.forEach(path -> providedDatapacks.add(addProvider(path)));
         } else
             providedDatapacks.add(addProvider("datapacks"));
         return providedDatapacks.toArray(new RepositorySource[0]);

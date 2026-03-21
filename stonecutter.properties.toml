@@ -46,5 +46,3 @@ pub_end="latest"
 
 ["26.1"]
 version="26.1-pre-1"
-cloth_config="21.11.153"
-modmenu="18.0.0-alpha.6"
