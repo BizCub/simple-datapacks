@@ -28,12 +28,12 @@ public class ReloadCommandMixin {
 
     @Inject(method = "register", at = @At("HEAD"))
     private static void sendMessage(CallbackInfo ci) {
-//        if (sd$shouldSend && !(Compat.isClothConfigLoaded() && !Configs.getInstance().sendRestartWarning)) {
-//            var playerlist = sd$sourceStack.getServer().getPlayerList();
-//            playerlist.getPlayers().forEach(player ->
-//                    //~ if >=26.1 'displayClientMessage' -> 'sendSystemMessage'
-//                    player.sendSystemMessage(Component.translatable("commands.reload.reload_needed").withStyle(ChatFormatting.RED), true));
-//            sd$shouldSend = false;
-//        }
+        if (sd$shouldSend && !(Compat.isClothConfigLoaded() && !Configs.getInstance().sendRestartWarning)) {
+            var playerlist = sd$sourceStack.getServer().getPlayerList();
+            playerlist.getPlayers().forEach(player ->
+                    //~ if >=26.1 'displayClientMessage' -> 'sendSystemMessage'
+                    player.sendSystemMessage(Component.translatable("commands.reload.reload_needed").withStyle(ChatFormatting.RED), true));
+            sd$shouldSend = false;
+        }
     }
 }

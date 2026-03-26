@@ -20,11 +20,11 @@ public class CreateWorldScreenMixin {
 
     @ModifyArg(method = "openCreateWorldScreen", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/CreateWorldScreen;createDefaultLoadConfig(Lnet/minecraft/server/packs/repository/PackRepository;Lnet/minecraft/world/level/WorldDataConfiguration;)Lnet/minecraft/server/WorldLoader$InitConfig;"))
     private static WorldDataConfiguration addGlobalFeatures(WorldDataConfiguration worldDataConfiguration) {
-//        if (Compat.isClothConfigLoaded() && Configs.getInstance().globalFeatures) {
-//            List<String> features = new ArrayList<>(worldDataConfiguration.dataPacks().getEnabled());
-//            features.addAll(SimpleDatapacks.features);
-//            return new WorldDataConfiguration(new DataPackConfig(features, List.of()), FeatureFlags.DEFAULT_FLAGS);
-//        }
+        if (Compat.isClothConfigLoaded() && Configs.getInstance().globalFeatures) {
+            List<String> features = new ArrayList<>(worldDataConfiguration.dataPacks().getEnabled());
+            features.addAll(SimpleDatapacks.features);
+            return new WorldDataConfiguration(new DataPackConfig(features, List.of()), FeatureFlags.DEFAULT_FLAGS);
+        }
         return worldDataConfiguration;
     }
 
