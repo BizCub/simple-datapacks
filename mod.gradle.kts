@@ -18,13 +18,13 @@ project.extensions.configure<MultiLoader>("multiloader") {
     }
 
     addRepository("https://maven.shedaniel.me")
-    addDependency("me.shedaniel.cloth:cloth-config-${mod.loader}:${getProp("cloth_config")}", "api")
+    addDependency("api", "me.shedaniel.cloth:cloth-config-${mod.loader}:${getProp("cloth_config")}")
 
     if (isFabric) {
         addRepository("https://maven.terraformersmc.com/releases")
 
-        addDependency("net.fabricmc:fabric-loader:latest.release", "implementation")
-        addDependency("com.terraformersmc:modmenu:${getProp("modmenu")}", "api")
+        addDependency("implementation", "net.fabricmc:fabric-loader:latest.release")
+        addDependency("api", "com.terraformersmc:modmenu:${getProp("modmenu")}")
     }
 
     if (isNeoForge) {
