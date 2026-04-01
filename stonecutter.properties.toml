@@ -44,9 +44,10 @@ cloth_config="20.0.149"
 modmenu="16.0.0"
 pub_end="1.21.11"
 
-["26.1"]
-forge="62.0.3"
-neoforge="5-beta"
+["26.1.1"]
+forge="63.0.0"
+neoforge="0-beta"
 cloth_config="26.1.154"
 modmenu="18.0.0-alpha.8"
+pub_start="26.1"
 pub_end="latest"
