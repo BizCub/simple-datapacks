@@ -1,7 +1,6 @@
 package com.bizcub.simpleDatapacks.mixin;
 
-import com.bizcub.simpleDatapacks.config.Compat;
-import com.bizcub.simpleDatapacks.config.Configs;
+import com.bizcub.simpleDatapacks.Main;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
@@ -21,18 +20,20 @@ public class ReloadCommandMixin {
     @Unique private static CommandSourceStack sd$sourceStack;
 
     @Inject(method = "reloadPacks", at = @At("HEAD"))
-    private static void shouldSend(Collection<String> collection, CommandSourceStack commandSourceStack, CallbackInfo ci) {
+    private static void shouldSend(Collection<String> selectedPacks, CommandSourceStack source, CallbackInfo ci) {
         sd$shouldSend = true;
-        sd$sourceStack = commandSourceStack;
+        sd$sourceStack = source;
     }
 
     @Inject(method = "register", at = @At("HEAD"))
     private static void sendMessage(CallbackInfo ci) {
-        if (sd$shouldSend && !(Compat.isClothConfigLoaded() && !Configs.getInstance().sendRestartWarning)) {
+        if (sd$shouldSend && Main.getConfig().sendRestartWarning()) {
             var playerlist = sd$sourceStack.getServer().getPlayerList();
             playerlist.getPlayers().forEach(player ->
                     //~ if >=26.1 'displayClientMessage' -> 'sendSystemMessage'
-                    player.sendSystemMessage(Component.translatable("commands.reload.reload_needed").withStyle(ChatFormatting.RED), true));
+                    player.sendSystemMessage(Component.translatableWithFallback("commands.reload.reload_needed",
+                            "You may need to restart the world (if there are datapacks that require it)")
+                            .withStyle(ChatFormatting.RED), true));
             sd$shouldSend = false;
         }
     }

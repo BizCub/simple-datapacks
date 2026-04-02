@@ -1,7 +1,6 @@
 package com.bizcub.simpleDatapacks;
 
-import com.bizcub.simpleDatapacks.config.Compat;
-import com.bizcub.simpleDatapacks.config.Configs;
+import com.bizcub.simpleDatapacks.config.ModConfig;
 import org.apache.commons.io.FileUtils;
 
 import java.io.IOException;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SimpleDatapacks {
+public class Main {
 
     public static final String MOD_ID = /*$ mod_id*/ "simple_datapacks";
     public static Path minecraftFolder;
@@ -20,15 +19,19 @@ public class SimpleDatapacks {
 
     public static void init(Path path) {
         minecraftFolder = path;
-        if (Compat.isClothConfigLoaded()) Configs.init();
+        getConfig();
+    }
+
+    public static ModConfig getConfig() {
+        return ModConfig.CONFIG;
     }
 
     public static void copyDatapacks(Path dest, List<String> rawDatapacks) {
-        if (!(Compat.isClothConfigLoaded() && Configs.getInstance().copyDatapacks)) return;
+        if (!(getConfig().copyDatapacks())) return;
 
         List<String> allPaths = new ArrayList<>();
-        allPaths.addAll(Configs.getInstance().optionalDatapacksPaths);
-        allPaths.addAll(Configs.getInstance().requiredDatapacksPaths);
+        allPaths.addAll(getConfig().optionalDatapacksPaths());
+        allPaths.addAll(getConfig().requiredDatapacksPaths());
 
         for (String path : allPaths) {
             Path src = Paths.get(path);

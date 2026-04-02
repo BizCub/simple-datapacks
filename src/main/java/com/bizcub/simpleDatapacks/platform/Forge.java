@@ -1,23 +1,23 @@
 //? forge {
 /*package com.bizcub.simpleDatapacks.platform;
 
-import com.bizcub.simpleDatapacks.SimpleDatapacks;
+import com.bizcub.simpleDatapacks.Main;
+import com.bizcub.simpleDatapacks.config.Compat;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.loading.FMLPaths;
 
-@Mod(SimpleDatapacks.MOD_ID)
+@Mod(Main.MOD_ID)
 public class Forge {
 
     public Forge() {
-        SimpleDatapacks.init(FMLPaths.GAMEDIR.get());
+        Main.init(FMLPaths.GAMEDIR.get());
 
         //? is_cloth_config_available {
-        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> {
-            return new ConfigScreenHandler.ConfigScreenFactory((minecraft, screen) -> {
-                return PlatformInit.getScreen(screen);
-            });
-        });//?}
+        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () ->
+                new ConfigScreenHandler.ConfigScreenFactory((minecraft, screen) ->
+                        Compat.getScreen(screen)
+        ));//?}
     }
 }*///?}

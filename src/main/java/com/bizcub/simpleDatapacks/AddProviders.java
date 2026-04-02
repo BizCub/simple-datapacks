@@ -1,7 +1,6 @@
 package com.bizcub.simpleDatapacks;
 
-import com.bizcub.simpleDatapacks.config.Compat;
-import com.bizcub.simpleDatapacks.config.Configs;
+import com.bizcub.simpleDatapacks.config.ModClothConfig;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.FolderRepositorySource;
 import net.minecraft.server.packs.repository.PackSource;
@@ -17,19 +16,15 @@ public class AddProviders {
 
     public static RepositorySource[] add(RepositorySource[] arg, boolean required) {
         ArrayList<RepositorySource> providedDatapacks = new ArrayList<>(Arrays.asList(arg));
-        if (Compat.isClothConfigLoaded()) {
-            List<String> paths;
-            if (required) paths = Configs.getInstance().requiredDatapacksPaths;
-            else paths = Configs.getInstance().optionalDatapacksPaths;
-
-            paths.forEach(path -> providedDatapacks.add(addProvider(path)));
-        } else
-            providedDatapacks.add(addProvider("datapacks"));
+        List<String> paths = required
+                ? Main.getConfig().requiredDatapacksPaths()
+                : Main.getConfig().optionalDatapacksPaths();
+        paths.forEach(path -> providedDatapacks.add(addProvider(path)));
         return providedDatapacks.toArray(new RepositorySource[0]);
     }
 
     private static FolderRepositorySource addProvider(String path) {
-        /*? >=1.20.2*/ var validator = new DirectoryValidator(p -> true);
+        /*? >=1.20.2*/ DirectoryValidator validator = new DirectoryValidator(p -> true);
         return new FolderRepositorySource(Paths.get(path), PackType.SERVER_DATA, PackSource.DEFAULT /*? >=1.20.2 {*/, validator /*?}*/);
     }
 }

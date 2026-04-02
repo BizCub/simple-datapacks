@@ -1,8 +1,7 @@
 package com.bizcub.simpleDatapacks.mixin;
 
 import com.bizcub.simpleDatapacks.AddProviders;
-import com.bizcub.simpleDatapacks.config.Compat;
-import com.bizcub.simpleDatapacks.config.Configs;
+import com.bizcub.simpleDatapacks.Main;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.RepositorySource;
 import net.minecraft.server.packs.repository.ServerPacksSource;
@@ -24,6 +23,6 @@ public class ServerPacksSourceMixin {
 
     @Inject(method = "createBuiltinPack", at = @At("HEAD"), cancellable = true)
     private void removeFeatures(CallbackInfoReturnable<Pack> cir) {
-        if (Compat.isClothConfigLoaded() && !Configs.getInstance().enableFeatures) cir.cancel();
+        if (!Main.getConfig().enableFeatures()) cir.cancel();
     }
 }

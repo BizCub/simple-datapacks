@@ -10,6 +10,9 @@ project.extensions.configure<MultiLoader>("multiloader") {
             sc.constants["is_cloth_config_available"] = isClothConfigAvailable
 
             sc.replacements {
+                string(scp >= "1.21.11" && !isForge, "auto_config") {
+                    replace("AutoConfig", "AutoConfigClient")
+                }
                 string(scp >= "1.21.2") {
                     replace("openFresh", "openCreateWorldScreen")
                 }

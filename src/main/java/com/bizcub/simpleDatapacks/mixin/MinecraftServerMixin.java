@@ -1,8 +1,6 @@
 package com.bizcub.simpleDatapacks.mixin;
 
-import com.bizcub.simpleDatapacks.SimpleDatapacks;
-import com.bizcub.simpleDatapacks.config.Compat;
-import com.bizcub.simpleDatapacks.config.Configs;
+import com.bizcub.simpleDatapacks.Main;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.world.level.storage.LevelResource;
@@ -13,7 +11,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.io.File;
@@ -34,7 +31,7 @@ public class MinecraftServerMixin {
         if (packRepository != null) {
             Path path = storageSource.getLevelPath(LevelResource.DATAPACK_DIR);
             Collection<String> enabled = packRepository.getSelectedIds();
-            SimpleDatapacks.copyDatapacks(path, new ArrayList<>(enabled));
+            Main.copyDatapacks(path, new ArrayList<>(enabled));
         }
     }
 
@@ -42,18 +39,15 @@ public class MinecraftServerMixin {
     private static boolean preventAutoLoading(Set<String> packs, Object pack) {
         String packName = (String) pack;
 
-        if (!packName.startsWith("file/")) {
+        if (!packName.startsWith("file/"))
             return packs.add(packName);
-        }
 
-        if (Compat.isClothConfigLoaded()) {
-            for (String path : Configs.getInstance().requiredDatapacksPaths) {
-                File[] files = new File(path).listFiles();
-                if (files != null) {
-                    for (File file : files) {
-                        if (file.getName().equals(packName.substring(5))) {
-                            return packs.add(packName);
-                        }
+        for (String path : Main.getConfig().requiredDatapacksPaths()) {
+            File[] files = new File(path).listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.getName().equals(packName.substring(5))) {
+                        return packs.add(packName);
                     }
                 }
             }
