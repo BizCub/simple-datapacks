@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.io.File;
@@ -21,10 +22,17 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 @Mixin(MinecraftServer.class)
-public class MinecraftServerMixin {
+public abstract class MinecraftServerMixin {
 
     @Shadow @Final protected LevelStorageSource.LevelStorageAccess storageSource;
     @Shadow @Final private PackRepository packRepository;
+
+    @Shadow public abstract CompletableFuture<Void> reloadResources(Collection<String> packsToEnable);
+
+    @Inject(method = "<init>", at = @At("TAIL"))
+    public void reloadPacks(CallbackInfo ci) {
+        reloadResources(packRepository.getSelectedIds());
+    }
 
     @Inject(method = "reloadResources", at = @At("HEAD"))
     private void copyDatapacks(CallbackInfoReturnable<CompletableFuture<Void>> cir) {

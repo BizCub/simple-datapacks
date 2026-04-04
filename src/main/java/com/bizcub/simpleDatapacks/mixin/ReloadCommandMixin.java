@@ -28,13 +28,15 @@ public class ReloadCommandMixin {
     @Inject(method = "register", at = @At("HEAD"))
     private static void sendMessage(CallbackInfo ci) {
         if (sd$shouldSend && Main.getConfig().sendRestartWarning()) {
+            sd$shouldSend = false;
             var playerlist = sd$sourceStack.getServer().getPlayerList();
             playerlist.getPlayers().forEach(player ->
                     //~ if >=26.1 'displayClientMessage' -> 'sendSystemMessage'
-                    player.sendSystemMessage(Component.translatableWithFallback("commands.reload.reload_needed",
-                            "You may need to restart the world (if there are datapacks that require it)")
-                            .withStyle(ChatFormatting.RED), true));
-            sd$shouldSend = false;
+                    player.sendSystemMessage(Component
+                            .translatableWithFallback("commands.reload.reload_needed", "You may need to restart the world (if there are datapacks that require it)")
+                            .withStyle(ChatFormatting.RED), true
+                    )
+            );
         }
     }
 }
