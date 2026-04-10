@@ -5,12 +5,12 @@
         "defaultRequire": 1
     },
     "mixins": [
-        "FeatureFlagsMixin",
-        "MinecraftServerMixin",
-        "ReloadCommandMixin",
+        "PackRepositoryMixin",
         "ServerPacksSourceMixin"
     ],
     "client": [
-        "CreateWorldScreenMixin"
+        "FeatureFlagsMixin",
+        "CreateWorldScreenMixin",
+        "MinecraftServerMixin"
     ]
 }

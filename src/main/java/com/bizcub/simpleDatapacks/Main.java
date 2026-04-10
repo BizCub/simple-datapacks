@@ -14,10 +14,12 @@ import java.util.List;
 public class Main {
 
     public static final String MOD_ID = /*$ mod_id*/ "simple_datapacks";
+    public static boolean initialized = false;
     public static Path minecraftFolder;
     public static List<String> features = new ArrayList<>();
 
     public static void init(Path path) {
+        initialized = true;
         minecraftFolder = path;
         getConfig();
     }

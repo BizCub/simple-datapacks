@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class FeatureFlagsMixin {
 
     @Inject(method = "createVanilla", at = @At("HEAD"))
-    private void createVanilla(String name, CallbackInfoReturnable<FeatureFlag> cir) {
+    private void addFeatures(String name, CallbackInfoReturnable<FeatureFlag> cir) {
         if (!name.equals("vanilla")) {
             Main.features.add(name);
         }
