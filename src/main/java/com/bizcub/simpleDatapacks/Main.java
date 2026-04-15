@@ -1,13 +1,8 @@
 package com.bizcub.simpleDatapacks;
 
-import com.bizcub.simpleDatapacks.config.Compat;
 import com.bizcub.simpleDatapacks.config.ModConfig;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import org.apache.commons.io.FileUtils;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -64,44 +59,5 @@ public class Main {
                 e.printStackTrace();
             }
         }
-    }
-
-    public static List<String> getPPDatapackNames() {
-        if (!Compat.isModLoaded("packed_packs")) return List.of();
-
-        Path ppFolder = minecraftFolder.resolve("config/packed_packs");
-        Path configPath = ppFolder.resolve("config.json");
-        Path profilesPath = ppFolder.resolve("profiles/datapacks");
-        String lastViewedProfileName = "";
-
-        try (FileReader reader = new FileReader(configPath.toString())) {
-            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
-            var lastViewedProfileNameJson = jsonObject
-                    .getAsJsonObject("datapacks")
-                    .get("lastViewedProfile");
-
-            if (lastViewedProfileNameJson == null) return List.of();
-
-            lastViewedProfileName = lastViewedProfileNameJson.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try (FileReader reader = new FileReader(profilesPath + "\\" + lastViewedProfileName.replace("\"", "") + ".profile.json")) {
-            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
-            var test = jsonObject.getAsJsonArray("packIds");
-
-            List<String> ppDatapackNames = new ArrayList<>();
-            for (JsonElement element : test)
-                ppDatapackNames.add(element.getAsString());
-
-            return ppDatapackNames.stream()
-                    .filter(s -> s.contains("file/"))
-                    .toList();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return List.of();
     }
 }

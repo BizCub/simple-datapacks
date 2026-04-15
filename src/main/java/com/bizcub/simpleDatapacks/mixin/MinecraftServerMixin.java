@@ -47,7 +47,7 @@ public class MinecraftServerMixin {
     private static boolean preventAutoLoading(Set<String> packs, Object pack) {
         String packName = (String) pack;
 
-        if (!packName.startsWith("file/") || Main.getPPDatapackNames().contains(packName))
+        if (!packName.startsWith("file/"))
             return packs.add(packName);
 
         for (String path : Main.getConfig().requiredDatapacksPaths()) {
