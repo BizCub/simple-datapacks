@@ -49,7 +49,8 @@ public class MinecraftServerMixin {
         List<String> uniqueDatapacks = packsToEnable.stream().filter(e -> !datapacksToEnable.contains(e)).toList();
 
         // Enabling required datapacks
-        uniqueDatapacks.stream().filter(Main::isRequiredDatapack).forEach(datapacksToEnable::add);
+        if (Main.getConfig().shouldApplyRequiredPacksToExistingWorld())
+            uniqueDatapacks.stream().filter(Main::isRequiredDatapack).forEach(datapacksToEnable::add);
 
         // If the datapack was disabled and then turned on, it needs to be applied
         disabledDatapacks.stream().filter(datapack -> !datapacksToEnable.contains(datapack)).forEach(datapacksToEnable::add);

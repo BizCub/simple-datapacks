@@ -17,6 +17,7 @@ public class ModClothConfig implements ModConfig, ConfigData {
     }
 
     @Tooltip public boolean copyDatapacks = ModConfig.super.copyDatapacks();
+    @Tooltip public boolean shouldApplyRequiredPacksToExistingWorld = ModConfig.super.shouldApplyRequiredPacksToExistingWorld();
     @Tooltip public boolean enableFeatures = ModConfig.super.enableFeatures();
     @Tooltip(count = 2) public boolean globalFeatures = ModConfig.super.globalFeatures();
     @Tooltip public boolean sendRestartWarning = ModConfig.super.sendRestartWarning();
@@ -27,6 +28,11 @@ public class ModClothConfig implements ModConfig, ConfigData {
     @Override
     public boolean copyDatapacks() {
         return this.copyDatapacks;
+    }
+
+    @Override
+    public boolean shouldApplyRequiredPacksToExistingWorld() {
+        return this.shouldApplyRequiredPacksToExistingWorld;
     }
 
     @Override

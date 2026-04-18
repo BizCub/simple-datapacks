@@ -1,1 +1,2 @@
-* Reverted recent changes for compatibility with Packed Packs, as this was necessary (default profiles are a preferable solution to remembering the last viewed profile)
+* Optional datapacks are no longer applied to the world if added to the folder during gameplay
+* Added a new option that allows you to enable/disable the application of datapacks from the required folder for an existing world

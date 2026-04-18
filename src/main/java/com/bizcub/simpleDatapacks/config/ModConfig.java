@@ -11,6 +11,10 @@ public interface ModConfig {
         return false;
     }
 
+    default boolean shouldApplyRequiredPacksToExistingWorld() {
+        return false;
+    }
+
     default boolean enableFeatures() {
         return true;
     }
