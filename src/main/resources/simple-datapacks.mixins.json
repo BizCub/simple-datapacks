@@ -9,8 +9,8 @@
         "ServerPacksSourceMixin"
     ],
     "client": [
-        "FeatureFlagsMixin",
         "CreateWorldScreenMixin",
+        "FeatureFlagsMixin",
         "MinecraftServerMixin"
     ]
 }
