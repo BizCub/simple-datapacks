@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.io.File;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
@@ -23,14 +24,14 @@ public class PackRepositoryMixin {
     @Shadow @Final @Mutable private Set<RepositorySource> sources;
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void addSources(RepositorySource[] sources, CallbackInfo ci) {
+    private void addSources(CallbackInfo ci) {
         if (!Main.initialized) return;
 
-        Set<RepositorySource> sources1 = new HashSet<>(this.sources);
-        sources1.addAll(sd$add(true));
-        sources1.addAll(sd$add(false));
+        Set<RepositorySource> sources = new HashSet<>(this.sources);
+        sources.addAll(sd$add(true));
+        sources.addAll(sd$add(false));
 
-        this.sources = sources1;
+        this.sources = sources;
     }
 
     @Unique
@@ -40,6 +41,7 @@ public class PackRepositoryMixin {
                 ? Main.getConfig().requiredDatapacksPaths()
                 : Main.getConfig().optionalDatapacksPaths();
         paths.forEach(path -> providedDatapacks.add(new FolderRepositorySource(
+                //~ if >=1.19.3 'new File(path)' -> 'Paths.get(path), PackType.SERVER_DATA'
                 Paths.get(path), PackType.SERVER_DATA, PackSource.DEFAULT /*? >=1.20.2 >>+ 'or()' */, Minecraft.getInstance().directoryValidator())));
         return providedDatapacks;
     }

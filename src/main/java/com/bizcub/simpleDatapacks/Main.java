@@ -63,16 +63,26 @@ public class Main {
     }
 
     public static boolean isRequiredDatapack(String checkedDatapack) {
+        for (String requiredDatapack : getRequiredDatapacks()) {
+            if (requiredDatapack.equals(checkedDatapack)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static List<String> getRequiredDatapacks() {
+        ArrayList<String> requiredDatapacks = new ArrayList<>();
+
         for (String path : Main.getConfig().requiredDatapacksPaths()) {
             File[] files = new File(path).listFiles();
             if (files != null) {
                 for (File file : files) {
-                    if (file.getName().equals(checkedDatapack.substring(5))) {
-                        return true;
-                    }
+                    requiredDatapacks.add("file/" + file.getName());
                 }
             }
         }
-        return false;
+
+        return requiredDatapacks;
     }
 }

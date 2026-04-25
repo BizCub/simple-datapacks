@@ -24,6 +24,7 @@ project.extensions.configure<MultiLoader>("multiloader") {
         addRepository("https://maven.terraformersmc.com/releases")
 
         addDependency("implementation", "net.fabricmc:fabric-loader:${getDep("fabric")}")
+        addDependency("implementation", "net.fabricmc.fabric-api:fabric-api:${getDep("fabric-api")}")
         addDependency("api", "com.terraformersmc:modmenu:${getDep("modmenu")}")
     }
 

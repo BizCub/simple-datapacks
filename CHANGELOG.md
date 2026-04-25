@@ -1,2 +1,4 @@
-* Optional datapacks are no longer applied to the world if added to the folder during gameplay
-* Added a new option that allows you to enable/disable the application of datapacks from the required folder for an existing world
+If no more bugs are found, this version will become the release version.
+
+* Fixed the check for enabled datapacks, which previously resulted in all datapacks being enabled during the first world reload.
+* Added more Minecraft versions.

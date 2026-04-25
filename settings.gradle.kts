@@ -28,4 +28,8 @@ stonecutter.create(rootProject) {
     match("1.21.1", fr, nf)
     match("1.20.2", fb, fr)
     match("1.19.4", fb, fr)
+    match("1.19", fb, fr)
+    match("1.18", fr)
+    match("1.17.1", fr)
+    match("1.16.5", fb)
 }

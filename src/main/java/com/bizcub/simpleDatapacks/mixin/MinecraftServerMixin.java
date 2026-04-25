@@ -2,10 +2,12 @@ package com.bizcub.simpleDatapacks.mixin;
 
 import com.bizcub.simpleDatapacks.Main;
 import net.minecraft.ChatFormatting;
+//~ if >=1.19 'TranslatableComponent' -> 'Component'
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.level.DataPackConfig;
 import net.minecraft.world.level.storage.LevelResource;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.WorldData;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
@@ -43,17 +46,18 @@ public class MinecraftServerMixin {
         copyDatapacks();
         displayMessage();
 
-        var worldDatapacks = worldData.getDataConfiguration().dataPacks();
+        //~ if >=1.19.3 '.getDataPackConfig()' -> '.getDataConfiguration().dataPacks()'
+        DataPackConfig worldDatapacks = worldData.getDataConfiguration().dataPacks();
         List<String> disabledDatapacks = new ArrayList<>(worldDatapacks.getDisabled());
         List<String> datapacksToEnable = new ArrayList<>(worldDatapacks.getEnabled());
-        List<String> uniqueDatapacks = packsToEnable.stream().filter(e -> !datapacksToEnable.contains(e)).toList();
+        List<String> uniqueDatapacks = packsToEnable.stream().filter(e -> !datapacksToEnable.contains(e)).collect(Collectors.toList());
 
         // Enabling required datapacks
         if (Main.getConfig().shouldApplyRequiredPacksToExistingWorld())
             uniqueDatapacks.stream().filter(Main::isRequiredDatapack).forEach(datapacksToEnable::add);
 
         // If the datapack was disabled and then turned on, it needs to be applied
-        disabledDatapacks.stream().filter(datapack -> !datapacksToEnable.contains(datapack)).forEach(datapacksToEnable::add);
+        disabledDatapacks.stream().filter(uniqueDatapacks::contains).forEach(datapacksToEnable::add);
 
         return datapacksToEnable;
     }
@@ -82,11 +86,15 @@ public class MinecraftServerMixin {
         if (Main.getConfig().sendRestartWarning()) {
             playerList.getPlayers().forEach(player ->
                     //~ if >=26.1 'displayClientMessage' -> 'sendSystemMessage'
-                    player.sendSystemMessage(Component
-                            .translatableWithFallback("commands.reload.reload_needed", "You may need to restart the world (if there are datapacks that require it)")
-                            .withStyle(ChatFormatting.RED), true
-                    )
+                    player.sendSystemMessage(getMessage().copy().withStyle(ChatFormatting.RED), true)
             );
         }
+    }
+
+    @Unique
+    //~ if >=1.19 'TranslatableComponent' -> 'Component'
+    private Component getMessage() {
+        //~ if >=1.19 'new TranslatableComponent' -> 'Component.translatable'
+        return Component.translatable("commands.reload.reload_needed", "You may need to restart the world (if there are datapacks that require it)");
     }
 }

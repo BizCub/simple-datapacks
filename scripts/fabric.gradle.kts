@@ -13,7 +13,15 @@ multiloader {
     dependencies {
         minecraft("com.mojang:minecraft:${mod.mcExact}")
         if (isObfuscated) "mappings"(loom.officialMojangMappings())
-        for (dep in deps) add(if (isObfuscated) dep.modConfiguration else dep.configuration, dep.dependency)
+        for (dep in deps) {
+            val configuration = if (isObfuscated) dep.modConfiguration else dep.configuration
+            when (dep.id) {
+                "cloth-config-fabric" -> add(configuration, dep.dependency) {
+                    exclude(group = "net.fabricmc.fabric-api")
+                }
+                else -> add(configuration, dep.dependency)
+            }
+        }
     }
 
     loom {

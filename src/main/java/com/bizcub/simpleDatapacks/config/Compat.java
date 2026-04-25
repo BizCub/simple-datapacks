@@ -9,8 +9,9 @@ import net.minecraft.client.gui.screens.Screen;
 
 public class Compat {
     public static final String clothConfigId =
-    /*? fabric*/ "cloth-config";
-    /*? forge || neoforge*/ //"cloth_config";
+    /*? (fabric && >=1.18) || (forge && <1.17)*/ "cloth-config";
+    /*? (forge && >=1.17) || neoforge*/ //"cloth_config";
+    /*? fabric && <1.18*/ //"cloth-config2";
 
     public static boolean isModLoaded(String modId) {
         /*? fabric*/ return FabricLoader.getInstance().isModLoaded(modId);
