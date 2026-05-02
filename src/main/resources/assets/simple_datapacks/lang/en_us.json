@@ -13,7 +13,5 @@
     "text.autoconfig.simple_datapacks.option.sendRestartWarning": "Send a warning",
     "text.autoconfig.simple_datapacks.option.sendRestartWarning.@Tooltip": "Send a warning about restarting the world?",
     "text.autoconfig.simple_datapacks.option.requiredDatapacksPaths": "Paths to required datapack folders",
-    "text.autoconfig.simple_datapacks.option.optionalDatapacksPaths": "Paths to optional datapack folders",
-
-    "commands.reload.reload_needed": "You may need to restart the world (if there are datapacks that require it)"
+    "text.autoconfig.simple_datapacks.option.optionalDatapacksPaths": "Paths to optional datapack folders"
 }

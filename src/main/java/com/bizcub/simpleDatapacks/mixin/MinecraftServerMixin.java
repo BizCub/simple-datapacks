@@ -4,6 +4,7 @@ import com.bizcub.simpleDatapacks.Main;
 import net.minecraft.ChatFormatting;
 //~ if >=1.19 'TranslatableComponent' -> 'Component'
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.server.players.PlayerList;
@@ -20,12 +21,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Mixin(MinecraftServer.class)
@@ -37,13 +40,17 @@ public class MinecraftServerMixin {
     @Shadow @Final protected WorldData worldData;
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void copyDatapacks(CallbackInfo ci) {
+    private void copyDatapacksInit(CallbackInfo ci) {
+        copyDatapacks();
+    }
+
+    @Inject(method = "reloadResources", at = @At("TAIL"))
+    private void copyDatapacksReload(CallbackInfoReturnable<CompletableFuture<Void>> cir) {
         copyDatapacks();
     }
 
     @ModifyVariable(method = "reloadResources", at = @At("HEAD"), argsOnly = true)
     private Collection<String> reload(Collection<String> packsToEnable) {
-        copyDatapacks();
         displayMessage();
 
         //~ if >=1.19.3 '.getDataPackConfig()' -> '.getDataConfiguration().dataPacks()'
@@ -58,6 +65,10 @@ public class MinecraftServerMixin {
 
         // If the datapack was disabled and then turned on, it needs to be applied
         disabledDatapacks.stream().filter(uniqueDatapacks::contains).forEach(datapacksToEnable::add);
+
+        // Disabling disabled datapack
+        datapacksToEnable.remove(Main.disabledDatapack);
+        Main.disabledDatapack = "";
 
         return datapacksToEnable;
     }
@@ -86,15 +97,21 @@ public class MinecraftServerMixin {
         if (Main.getConfig().sendRestartWarning()) {
             playerList.getPlayers().forEach(player ->
                     //~ if >=26.1 'displayClientMessage' -> 'sendSystemMessage'
-                    player.sendSystemMessage(getMessage().copy().withStyle(ChatFormatting.RED), true)
+                    player.sendSystemMessage(getMessage().withStyle(ChatFormatting.RED), true)
             );
         }
     }
 
     @Unique
-    //~ if >=1.19 'TranslatableComponent' -> 'Component'
-    private Component getMessage() {
-        //~ if >=1.19 'new TranslatableComponent' -> 'Component.translatable'
-        return Component.translatable("commands.reload.reload_needed", "You may need to restart the world (if there are datapacks that require it)");
+    //~ if >=1.19 'TranslatableComponent' -> 'MutableComponent'
+    private MutableComponent getMessage() {
+        return
+                //? >=1.19.3 {
+                Component.translatableWithFallback(
+                //?} >=1.19 {
+                /*Component.translatable(
+                *///?} else
+                //new TranslatableComponent(
+                        "commands.reload.reload_needed", "You may need to restart the world (if there are datapacks that require it)");
     }
 }

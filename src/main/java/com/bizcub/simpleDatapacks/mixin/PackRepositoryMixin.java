@@ -1,12 +1,12 @@
 package com.bizcub.simpleDatapacks.mixin;
 
 import com.bizcub.simpleDatapacks.Main;
-import net.minecraft.client.Minecraft;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.FolderRepositorySource;
 import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.server.packs.repository.RepositorySource;
+/*? >=1.20.2*/ import net.minecraft.world.level.validation.DirectoryValidator;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -42,7 +42,7 @@ public class PackRepositoryMixin {
                 : Main.getConfig().optionalDatapacksPaths();
         paths.forEach(path -> providedDatapacks.add(new FolderRepositorySource(
                 //~ if >=1.19.3 'new File(path)' -> 'Paths.get(path), PackType.SERVER_DATA'
-                Paths.get(path), PackType.SERVER_DATA, PackSource.DEFAULT /*? >=1.20.2 >>+ 'or()' */, Minecraft.getInstance().directoryValidator())));
+                Paths.get(path), PackType.SERVER_DATA, PackSource.DEFAULT /*? >=1.20.2 >>+ ')' */, new DirectoryValidator(p -> true))));
         return providedDatapacks;
     }
 }

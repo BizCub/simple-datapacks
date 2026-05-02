@@ -5,12 +5,13 @@
         "defaultRequire": 1
     },
     "mixins": [
+        "DataPackCommandMixin",
+        "FeatureFlagsMixin",
+        "MinecraftServerMixin",
         "PackRepositoryMixin",
         "ServerPacksSourceMixin"
     ],
     "client": [
-        "CreateWorldScreenMixin",
-        "FeatureFlagsMixin",
-        "MinecraftServerMixin"
+        "CreateWorldScreenMixin"
     ]
 }

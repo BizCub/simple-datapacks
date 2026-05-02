@@ -18,6 +18,7 @@ public class Main {
     public static boolean initialized = false;
     public static Path minecraftFolder;
     public static List<String> features = new ArrayList<>();
+    public static String disabledDatapack = "";
 
     public static void init(Path path) {
         initialized = true;
