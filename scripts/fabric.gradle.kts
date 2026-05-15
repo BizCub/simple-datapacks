@@ -27,6 +27,9 @@ multiloader {
     loom {
         runConfigs.getByName("client") { runDir = clientRunPath }
         runConfigs.getByName("server") { runDir = serverRunPath }
+
+        val awFile = rootProject.file(ctFabricPath)
+        if (awFile.exists()) accessWidenerPath = sc.process(awFile, ctFabricProcessPath)
     }
 
     val builtFile = if (isObfuscated)
@@ -40,5 +43,9 @@ multiloader {
 
     tasks.named<Copy>("buildAndCollect") {
         from(builtFile)
+    }
+
+    tasks.named("validateAccessWidener") {
+        dependsOn("processResources")
     }
 }
