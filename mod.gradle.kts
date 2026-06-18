@@ -21,6 +21,7 @@ project.extensions.configure<MultiLoader>("multiloader") {
     }
 
     addDependency("maven.shedaniel.me", "api", "me.shedaniel.cloth:cloth-config-${mod.loader}:${getDep("cloth-config")?.split("+")?.first()}")
+    if (!(scp eq "1.19")) addDependency("runtimeOnly", "maven.modrinth:enhanced-world-creation:${getDep("enhanced-world-creation")}")
 
     if (isFabric) {
         addDependency("implementation", "net.fabricmc:fabric-loader:${getDep("fabric")}")
