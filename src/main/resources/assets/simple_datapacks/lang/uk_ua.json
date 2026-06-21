@@ -1,0 +1,22 @@
+{
+    "text.autoconfig.simple_datapacks.title": "Налаштування Simple Datapacks",
+
+    "text.autoconfig.simple_datapacks.option.copyDatapacks": "Копіювати пакети даних",
+    "text.autoconfig.simple_datapacks.option.copyDatapacks.@Tooltip": "Чи копіювати пакети даних у теку світу під час їх вибору.",
+    "text.autoconfig.simple_datapacks.option.shouldApplyRequiredPacksToExistingWorld": "Слід застосувати необхідні пакети даних до наявного світу",
+    "text.autoconfig.simple_datapacks.option.shouldApplyRequiredPacksToExistingWorld.@Tooltip": "Під час додавання пакета даних до потрібної теки, чи буде він застосований до вже створеного світу?",
+    "text.autoconfig.simple_datapacks.option.enableFeatures": "Увімкнути функції",
+    "text.autoconfig.simple_datapacks.option.enableFeatures.@Tooltip": "Чи вмикати експериментальні пакети даних.",
+    "text.autoconfig.simple_datapacks.option.globalFeatures": "Глобальні функції",
+    "text.autoconfig.simple_datapacks.option.globalFeatures.@Tooltip[0]": "Чи слід використовувати функції глобально?",
+    "text.autoconfig.simple_datapacks.option.globalFeatures.@Tooltip[1]": "(Працює, коли функції ввімкнено).",
+    "text.autoconfig.simple_datapacks.option.sendRestartWarning": "Надіслати попередження",
+    "text.autoconfig.simple_datapacks.option.sendRestartWarning.@Tooltip": "Чи слід надсилати попередження про перезапуск світу?",
+    "text.autoconfig.simple_datapacks.option.requiredDatapacksPaths": "Шляхи до необхідних тек пакетів даних",
+    "text.autoconfig.simple_datapacks.option.optionalDatapacksPaths": "Шляхи до додаткових тек пакетів даних",
+
+    "commands.reload.reload_needed": "Можливо, вам знадобиться перезапустити світ (якщо є пакети даних, які цього потребують)",
+
+    "modmenu.descriptionTranslation.simple_datapacks": "Цей мод спрощує використання пакетів даних для тих, хто хоче встановити їх без будь-яких проблем і насолоджуватися грою.",
+    "fml.menu.mods.info.description.simple_datapacks": "Цей мод спрощує використання пакетів даних для тих, хто хоче встановити їх без будь-яких проблем і насолоджуватися грою."
+}
