@@ -1,9 +1,7 @@
 plugins {
     multiloader
-    alias(libs.plugins.loom.architectury)
+    alias(libs.plugins.loom.arch)
 }
-
-apply(from = ml.scriptPath)
 
 multiloader {
     loom.silentMojangMappingsLicense()
@@ -18,16 +16,18 @@ multiloader {
         minecraft("com.mojang:minecraft:${mod.mc}")
         mappings(loom.officialMojangMappings())
         "forge"("net.minecraftforge:forge:${getDep("forge")}")
-        for (dep in deps) dep.configuration(dep.dependency)
+        for (dep in deps) dep.configuration(dep.dependency) {
+            for (module in eModules) exclude(module.module)
+        }
     }
 
     loom {
-        runConfigs.getByName("client") { runDir = clientRunPath }
-        runConfigs.getByName("server") { runDir = serverRunPath }
+        runConfigs.getByName("client") { runDirectory.set(clientRunFile) }
+        runConfigs.getByName("server") { runDirectory.set(serverRunFile) }
 
         forge.mixinConfigs("${mod.mixin}.mixins.json")
         val awFile = file(ctForgeArchPath)
-        if (awFile.exists()) accessWidenerPath = awFile
+        if (awFile.exists()) accessWidenerPath.set(awFile)
 
         decompilers {
             get("vineflower").apply {
@@ -42,11 +42,13 @@ multiloader {
         file.set(builtFile)
     }
 
-    tasks.named<Copy>("buildAndCollect") {
-        from(builtFile)
-    }
+    tasks {
+        named<Copy>("buildAndCollect") {
+            from(builtFile)
+        }
 
-    tasks.named("validateAccessWidener") {
-        dependsOn("processResources")
+        named("validateAccessWidener") {
+            dependsOn("processResources")
+        }
     }
 }
