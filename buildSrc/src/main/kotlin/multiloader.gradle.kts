@@ -15,6 +15,9 @@ multiloader {
         }
     }
 
+    setMREnvironment(mrEnvs.clientOnly)
+    setCFEnvironment(cfEnvs.client)
+
     addDependency(
         dependency = "me.shedaniel.cloth:cloth-config-${mod.loader}:${getDep("cloth-config").split("+").first()}",
         configuration = if (isClothConfigAvailable) "implementation" else "compileOnly",
