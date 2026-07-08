@@ -4,9 +4,7 @@ plugins {
 }
 
 multiloader {
-    loom.silentMojangMappingsLicense()
-
-    java.toolchain.languageVersion.set(JavaLanguageVersion.of(mod.javaNumber))
+    setBuiltFile(tasks.remapJar.get().archiveFile)
 
     repositories {
         for (rep in reps) maven(rep.repository)
@@ -22,33 +20,18 @@ multiloader {
     }
 
     loom {
-        runConfigs.getByName("client") { runDirectory.set(clientRunFile) }
-        runConfigs.getByName("server") { runDirectory.set(serverRunFile) }
+        if (mixinFile.exists())
+            forge.mixinConfigs(mixinFile.name)
+        if (ctForgeArchFile.exists())
+            accessWidenerPath.set(ctForgeArchFile)
 
-        forge.mixinConfigs("${mod.mixin}.mixins.json")
-        val awFile = file(ctForgeArchPath)
-        if (awFile.exists()) accessWidenerPath.set(awFile)
-
-        decompilers {
-            get("vineflower").apply {
-                options.put("mark-corresponding-synthetics", "1")
+        runConfigs {
+            getByName("client") {
+                runDirectory.set(clientRunFile)
             }
-        }
-    }
-
-    val builtFile = tasks.remapJar.get().archiveFile
-
-    publishMods {
-        file.set(builtFile)
-    }
-
-    tasks {
-        named<Copy>("buildAndCollect") {
-            from(builtFile)
-        }
-
-        named("validateAccessWidener") {
-            dependsOn("processResources")
+            getByName("server") {
+                runDirectory.set(serverRunFile)
+            }
         }
     }
 }
