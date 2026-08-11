@@ -1,6 +1,5 @@
 {
     "text.autoconfig.simple_datapacks.title": "Налаштування Simple Datapacks",
-
     "text.autoconfig.simple_datapacks.option.copyDatapacks": "Копіювати пакети даних",
     "text.autoconfig.simple_datapacks.option.copyDatapacks.@Tooltip": "Чи копіювати пакети даних у теку світу під час їх вибору.",
     "text.autoconfig.simple_datapacks.option.shouldApplyRequiredPacksToExistingWorld": "Слід застосувати необхідні пакети даних до наявного світу",
@@ -14,6 +13,20 @@
     "text.autoconfig.simple_datapacks.option.sendRestartWarning.@Tooltip": "Чи слід надсилати попередження про перезапуск світу?",
     "text.autoconfig.simple_datapacks.option.requiredDatapacksPaths": "Шляхи до необхідних тек пакетів даних",
     "text.autoconfig.simple_datapacks.option.optionalDatapacksPaths": "Шляхи до додаткових тек пакетів даних",
+
+    "text.simple_datapacks.group.general": "Налаштування Simple Datapacks",
+    "text.simple_datapacks.option.copyDatapacks": "Копіювати пакети даних",
+    "text.simple_datapacks.option.copyDatapacks.tooltip": "Чи копіювати пакети даних у теку світу під час їх вибору.",
+    "text.simple_datapacks.option.shouldApplyRequiredPacksToExistingWorld": "Слід застосувати необхідні пакети даних до наявного світу",
+    "text.simple_datapacks.option.shouldApplyRequiredPacksToExistingWorld.tooltip": "Під час додавання пакета даних до потрібної теки, чи буде він застосований до вже створеного світу?",
+    "text.simple_datapacks.option.enableFeatures": "Увімкнути функції",
+    "text.simple_datapacks.option.enableFeatures.tooltip": "Чи вмикати експериментальні пакети даних.",
+    "text.simple_datapacks.option.globalFeatures": "Глобальні функції",
+    "text.simple_datapacks.option.globalFeatures.tooltip": "Чи слід використовувати функції глобально?\n(Працює, коли функції ввімкнено).",
+    "text.simple_datapacks.option.sendRestartWarning": "Надіслати попередження",
+    "text.simple_datapacks.option.sendRestartWarning.tooltip": "Чи слід надсилати попередження про перезапуск світу?",
+    "text.simple_datapacks.option.requiredDatapacksPaths": "Шляхи до необхідних тек пакетів даних",
+    "text.simple_datapacks.option.optionalDatapacksPaths": "Шляхи до додаткових тек пакетів даних",
 
     "commands.reload.reload_needed": "Можливо, вам знадобиться перезапустити світ (якщо є пакети даних, які цього потребують)",
 

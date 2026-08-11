@@ -1,6 +1,5 @@
 {
     "text.autoconfig.simple_datapacks.title": "Настройки Simple Datapacks",
-
     "text.autoconfig.simple_datapacks.option.copyDatapacks": "Копировать пакеты данных",
     "text.autoconfig.simple_datapacks.option.copyDatapacks.@Tooltip": "Копировать ли наборы данных в мир при их выборе",
     "text.autoconfig.simple_datapacks.option.shouldApplyRequiredPacksToExistingWorld": "Применить ли обязательные пакеты данных к существующему миру",
@@ -14,6 +13,20 @@
     "text.autoconfig.simple_datapacks.option.sendRestartWarning.@Tooltip": "Отправить предупреждение о перезапуска мира?",
     "text.autoconfig.simple_datapacks.option.requiredDatapacksPaths": "Пути к обязательным папкам с пакетами данных",
     "text.autoconfig.simple_datapacks.option.optionalDatapacksPaths": "Пути к необязательным папкам с пакетами данных",
+
+    "text.simple_datapacks.group.general": "Настройки Simple Datapacks",
+    "text.simple_datapacks.option.copyDatapacks": "Копировать пакеты данных",
+    "text.simple_datapacks.option.copyDatapacks.tooltip": "Копировать ли наборы данных в мир при их выборе",
+    "text.simple_datapacks.option.shouldApplyRequiredPacksToExistingWorld": "Применить ли обязательные пакеты данных к существующему миру",
+    "text.simple_datapacks.option.shouldApplyRequiredPacksToExistingWorld.tooltip": "При добавлении пакета данных в необходимую папку, будет ли он применен к уже созданному миру?",
+    "text.simple_datapacks.option.enableFeatures": "Включить эксперименты",
+    "text.simple_datapacks.option.enableFeatures.tooltip": "Включить ли экспериментальные пакеты данных",
+    "text.simple_datapacks.option.globalFeatures": "Глобальные эксперименты",
+    "text.simple_datapacks.option.globalFeatures.tooltip": "Использовать эксперименты глобально?\n(Работает при включенных экспериментах)",
+    "text.simple_datapacks.option.sendRestartWarning": "Отправить предупреждение",
+    "text.simple_datapacks.option.sendRestartWarning.tooltip": "Отправить предупреждение о перезапуска мира?",
+    "text.simple_datapacks.option.requiredDatapacksPaths": "Пути к обязательным папкам с пакетами данных",
+    "text.simple_datapacks.option.optionalDatapacksPaths": "Пути к необязательным папкам с пакетами данных",
 
     "commands.reload.reload_needed": "Возможно, потребуется перезапустить мир (если есть пакеты данных, которые этого требуют)",
 

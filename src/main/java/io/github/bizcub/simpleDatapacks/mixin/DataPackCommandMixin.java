@@ -1,6 +1,6 @@
-package com.bizcub.simpleDatapacks.mixin;
+package io.github.bizcub.simpleDatapacks.mixin;
 
-import com.bizcub.simpleDatapacks.Main;
+import io.github.bizcub.simpleDatapacks.Main;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.commands.DataPackCommand;
 import net.minecraft.server.packs.repository.Pack;

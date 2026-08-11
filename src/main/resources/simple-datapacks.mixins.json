@@ -1,6 +1,6 @@
 {
     "required": true,
-    "package": "com.bizcub.simpleDatapacks.mixin",
+    "package": "io.github.bizcub.simpleDatapacks.mixin",
     "injectors": {
         "defaultRequire": 1
     },

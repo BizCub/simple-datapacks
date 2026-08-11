@@ -1,6 +1,6 @@
-package com.bizcub.simpleDatapacks;
+package io.github.bizcub.simpleDatapacks;
 
-import com.bizcub.simpleDatapacks.config.ModConfig;
+import io.github.bizcub.simpleDatapacks.config.*;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -23,19 +23,20 @@ public class Main {
     public static void init(Path path) {
         initialized = true;
         minecraftFolder = path;
-        getConfig();
-    }
 
-    public static ModConfig getConfig() {
-        return ModConfig.CONFIG;
+        if (ConfigHelper.isSimpleConfigLoaded()) {
+            Config.set(SimpleConfig.getInstance().get());
+        } else if (ConfigHelper.isClothConfigLoaded()) {
+            Config.set(ClothConfig.getInstance());
+        }
     }
 
     public static void copyDatapacks(Path dest, List<String> rawDatapacks) {
-        if (!(getConfig().copyDatapacks())) return;
+        if (!(Config.get().copyDatapacks())) return;
 
         List<String> allPaths = new ArrayList<>();
-        allPaths.addAll(getConfig().optionalDatapacksPaths());
-        allPaths.addAll(getConfig().requiredDatapacksPaths());
+        allPaths.addAll(Config.get().optionalDatapacksPaths());
+        allPaths.addAll(Config.get().requiredDatapacksPaths());
 
         for (String path : allPaths) {
             Path src = Paths.get(path);
@@ -75,7 +76,7 @@ public class Main {
     public static List<String> getRequiredDatapacks() {
         ArrayList<String> requiredDatapacks = new ArrayList<>();
 
-        for (String path : Main.getConfig().requiredDatapacksPaths()) {
+        for (String path : Config.get().requiredDatapacksPaths()) {
             File[] files = new File(path).listFiles();
             if (files != null) {
                 for (File file : files) {

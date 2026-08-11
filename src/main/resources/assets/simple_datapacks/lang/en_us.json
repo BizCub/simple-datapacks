@@ -1,6 +1,5 @@
 {
     "text.autoconfig.simple_datapacks.title": "Simple Datapacks Settings",
-
     "text.autoconfig.simple_datapacks.option.copyDatapacks": "Copy datapacks",
     "text.autoconfig.simple_datapacks.option.copyDatapacks.@Tooltip": "Whether to copy datapacks to the world directory when selecting them",
     "text.autoconfig.simple_datapacks.option.shouldApplyRequiredPacksToExistingWorld": "Should apply required datapacks to existing world",
@@ -13,5 +12,19 @@
     "text.autoconfig.simple_datapacks.option.sendRestartWarning": "Send a warning",
     "text.autoconfig.simple_datapacks.option.sendRestartWarning.@Tooltip": "Send a warning about restarting the world?",
     "text.autoconfig.simple_datapacks.option.requiredDatapacksPaths": "Paths to required datapack folders",
-    "text.autoconfig.simple_datapacks.option.optionalDatapacksPaths": "Paths to optional datapack folders"
+    "text.autoconfig.simple_datapacks.option.optionalDatapacksPaths": "Paths to optional datapack folders",
+
+    "text.simple_datapacks.group.general": "Simple Datapacks Settings",
+    "text.simple_datapacks.option.copyDatapacks": "Copy datapacks",
+    "text.simple_datapacks.option.copyDatapacks.tooltip": "Whether to copy datapacks to the world directory when selecting them",
+    "text.simple_datapacks.option.shouldApplyRequiredPacksToExistingWorld": "Should apply required datapacks to existing world",
+    "text.simple_datapacks.option.shouldApplyRequiredPacksToExistingWorld.tooltip": "When adding a datapack to the required folder, will it be applied to an already created world?",
+    "text.simple_datapacks.option.enableFeatures": "Enable features",
+    "text.simple_datapacks.option.enableFeatures.tooltip": "Whether to enable experimental datapacks",
+    "text.simple_datapacks.option.globalFeatures": "Global features",
+    "text.simple_datapacks.option.globalFeatures.tooltip": "Should features be used globally?\n(Works when features are enabled)",
+    "text.simple_datapacks.option.sendRestartWarning": "Send a warning",
+    "text.simple_datapacks.option.sendRestartWarning.tooltip": "Send a warning about restarting the world?",
+    "text.simple_datapacks.option.requiredDatapacksPaths": "Paths to required datapack folders",
+    "text.simple_datapacks.option.optionalDatapacksPaths": "Paths to optional datapack folders"
 }

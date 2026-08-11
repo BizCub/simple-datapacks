@@ -1,10 +1,9 @@
-package com.bizcub.simpleDatapacks.mixin;
+package io.github.bizcub.simpleDatapacks.mixin;
 
-import com.bizcub.simpleDatapacks.Main;
+import io.github.bizcub.simpleDatapacks.Main;
+import io.github.bizcub.simpleDatapacks.config.Config;
 import net.minecraft.ChatFormatting;
-//~ if >=1.19 'TranslatableComponent' -> 'Component'
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.server.players.PlayerList;
@@ -53,14 +52,13 @@ public class MinecraftServerMixin {
     private Collection<String> reload(Collection<String> packsToEnable) {
         displayMessage();
 
-        //~ if >=1.19.3 '.getDataPackConfig()' -> '.getDataConfiguration().dataPacks()'
         DataPackConfig worldDatapacks = worldData.getDataConfiguration().dataPacks();
         List<String> disabledDatapacks = new ArrayList<>(worldDatapacks.getDisabled());
         List<String> datapacksToEnable = new ArrayList<>(worldDatapacks.getEnabled());
         List<String> uniqueDatapacks = packsToEnable.stream().filter(e -> !datapacksToEnable.contains(e)).collect(Collectors.toList());
 
         // Enabling required datapacks
-        if (Main.getConfig().shouldApplyRequiredPacksToExistingWorld())
+        if (Config.get().shouldApplyRequiredPacksToExistingWorld())
             uniqueDatapacks.stream().filter(Main::isRequiredDatapack).forEach(datapacksToEnable::add);
 
         // If the datapack was disabled and then turned on, it needs to be applied
@@ -94,24 +92,14 @@ public class MinecraftServerMixin {
 
     @Unique
     private void displayMessage() {
-        if (Main.getConfig().sendRestartWarning()) {
+        if (Config.get().sendRestartWarning()) {
             playerList.getPlayers().forEach(player ->
                     //~ if >=26.1 'displayClientMessage' -> 'sendSystemMessage'
-                    player.sendSystemMessage(getMessage().withStyle(ChatFormatting.RED), true)
+                    player.sendSystemMessage(Component
+                            .translatableWithFallback("commands.reload.reload_needed",
+                            "You may need to restart the world (if there are datapacks that require it)")
+                            .withStyle(ChatFormatting.RED), true)
             );
         }
-    }
-
-    @Unique
-    //~ if >=1.19 'TranslatableComponent' -> 'MutableComponent'
-    private MutableComponent getMessage() {
-        return
-                //? >=1.19.3 {
-                Component.translatableWithFallback(
-                //?} >=1.19 {
-                /*Component.translatable(
-                *///?} else
-                //new TranslatableComponent(
-                        "commands.reload.reload_needed", "You may need to restart the world (if there are datapacks that require it)");
     }
 }

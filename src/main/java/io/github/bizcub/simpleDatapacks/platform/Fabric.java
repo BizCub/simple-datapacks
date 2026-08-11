@@ -1,8 +1,8 @@
 //? fabric {
-package com.bizcub.simpleDatapacks.platform;
+package io.github.bizcub.simpleDatapacks.platform;
 
-import com.bizcub.simpleDatapacks.Main;
-import com.bizcub.simpleDatapacks.config.Compat;
+import io.github.bizcub.simpleDatapacks.Main;
+import io.github.bizcub.simpleDatapacks.config.ConfigHelper;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.ModInitializer;
@@ -19,7 +19,7 @@ public class Fabric implements ModInitializer {
 
         @Override
         public ConfigScreenFactory<?> getModConfigScreenFactory() {
-            return Compat::getScreen;
+            return ConfigHelper::getScreen;
         }
     }
 }//?}
