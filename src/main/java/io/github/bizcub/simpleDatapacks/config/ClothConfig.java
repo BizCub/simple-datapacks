@@ -12,7 +12,11 @@ import java.util.List;
 public class ClothConfig implements Config, ConfigData {
 
     public static ClothConfig getInstance() {
-        return AutoConfig.register(ClothConfig.class, GsonConfigSerializer::new).getConfig();
+        return AutoConfig.getConfigHolder(ClothConfig.class).getConfig();
+    }
+
+    public static void init() {
+        AutoConfig.register(ClothConfig.class, GsonConfigSerializer::new);
     }
 
     @Tooltip

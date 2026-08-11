@@ -27,6 +27,7 @@ public class Main {
         if (ConfigHelper.isSimpleConfigLoaded()) {
             Config.set(SimpleConfig.getInstance().get());
         } else if (ConfigHelper.isClothConfigLoaded()) {
+            ClothConfig.init();
             Config.set(ClothConfig.getInstance());
         }
     }
