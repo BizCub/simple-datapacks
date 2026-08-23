@@ -46,9 +46,6 @@ public class Main {
             rawDatapacks.removeIf(s -> !s.startsWith("file/"));
             rawDatapacks.forEach(s -> datapacks.add(s.substring(5)));
 
-            String[] copiedDatapacks = dest.toFile().list();
-            if (copiedDatapacks != null) datapacks.removeAll(Arrays.asList(copiedDatapacks));
-
             try {
                 for (String str : datapacks) {
                     if (!Files.exists(src.resolve(str))) continue;
