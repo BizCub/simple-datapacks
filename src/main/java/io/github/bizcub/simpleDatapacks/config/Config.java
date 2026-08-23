@@ -1,5 +1,6 @@
 package io.github.bizcub.simpleDatapacks.config;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,6 +45,9 @@ public interface Config {
     }
 
     default List<String> optionalDatapacksPaths() {
-        return new ArrayList<>(Arrays.asList("datapacks", System.getProperty("user.home") + "\\Downloads"));
+        return new ArrayList<>(Arrays.asList(
+                "datapacks",
+                Paths.get(System.getProperty("user.home"), "Downloads").toString()
+        ));
     }
 }
