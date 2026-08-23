@@ -7,6 +7,7 @@
     "mixins": [
         "DataPackCommandMixin",
         "FeatureFlagsMixin",
+        "FolderRepositorySourceMixin",
         "MinecraftServerMixin",
         "PackRepositoryMixin",
         "ServerPacksSourceMixin"

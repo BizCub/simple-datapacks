@@ -23,7 +23,7 @@ multiloader {
         configuration = "runtimeOnly"
     )
     addDependency(
-        dependency = "io.github.bizcub:simple-config-lib:1.0-${mod.loader}+${mod.mc}"
+        dependency = "maven.modrinth:simple-config-lib:${getDep("simple-config-lib")}"
     )
     val isClothConfigAvailable = !(isForge && scp > "1.21.3")
     addDependency(
