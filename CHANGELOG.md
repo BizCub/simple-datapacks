@@ -1,1 +1,0 @@
-* Added Ukrainian translation (thanks StarmanMine142)
