@@ -23,7 +23,8 @@ multiloader {
         configuration = "runtimeOnly"
     )
     addDependency(
-        dependency = "maven.modrinth:simple-config-lib:${getDep("simple-config-lib")}"
+        dependency = "maven.modrinth:simple-config-lib:${getDep("simple-config-lib")}",
+        isPublishDepEnabled = true
     )
     val isClothConfigAvailable = !(isForge && scp > "1.21.3")
     addDependency(
