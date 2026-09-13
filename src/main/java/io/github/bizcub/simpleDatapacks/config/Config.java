@@ -1,5 +1,7 @@
 package io.github.bizcub.simpleDatapacks.config;
 
+import io.github.bizcub.simpleConfigLib.autoconfig.ConfigProvider;
+
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,17 +9,10 @@ import java.util.List;
 
 public interface Config {
     static Config get() {
-        return Holder.INSTANCE;
+        return ConfigProvider.get(Config.class);
     }
-
-    static void set(final Config config) {
-        if (config != null) {
-            Holder.INSTANCE = config;
-        }
-    }
-
-    class Holder {
-        private static Config INSTANCE = new Config() { };
+    static void set(Config instance) {
+        ConfigProvider.set(Config.class, instance);
     }
 
     default boolean copyDatapacks() {
