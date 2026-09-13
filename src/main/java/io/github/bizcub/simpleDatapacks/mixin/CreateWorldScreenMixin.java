@@ -19,7 +19,7 @@ public class CreateWorldScreenMixin {
 
     //~ if >=1.21.2 'openFresh' -> 'openCreateWorldScreen'
     @ModifyArg(method = "openCreateWorldScreen", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/CreateWorldScreen;createDefaultLoadConfig(Lnet/minecraft/server/packs/repository/PackRepository;Lnet/minecraft/world/level/WorldDataConfiguration;)Lnet/minecraft/server/WorldLoader$InitConfig;"))
-    private static WorldDataConfiguration addGlobalFeatures(WorldDataConfiguration worldDataConfiguration) {
+    private static WorldDataConfiguration sd$addGlobalFeatures(WorldDataConfiguration worldDataConfiguration) {
         if (Config.get().globalFeatures()) {
             List<String> features = new ArrayList<>(worldDataConfiguration.dataPacks().getEnabled());
             features.addAll(Main.features);

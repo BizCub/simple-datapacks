@@ -23,14 +23,26 @@ public class PackRepositoryMixin {
 
     @Shadow @Final @Mutable private Set<RepositorySource> sources;
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void addSources(CallbackInfo ci) {
-        if (!Main.initialized) return;
+    @Unique private Set<RepositorySource> sd$vanillaSources;
 
-        Set<RepositorySource> sources = new HashSet<>(this.sources);
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void sd$addSources(CallbackInfo ci) {
+        if (!Main.initialized) return;
+        sd$vanillaSources = new HashSet<>(this.sources);
+        sd$rebuild();
+    }
+
+    @Inject(method = "reload", at = @At("HEAD"))
+    private void sd$refreshSources(CallbackInfo ci) {
+        if (!Main.initialized || sd$vanillaSources == null) return;
+        sd$rebuild();
+    }
+
+    @Unique
+    private void sd$rebuild() {
+        Set<RepositorySource> sources = new HashSet<>(sd$vanillaSources);
         sources.addAll(sd$add(true));
         sources.addAll(sd$add(false));
-
         this.sources = sources;
     }
 

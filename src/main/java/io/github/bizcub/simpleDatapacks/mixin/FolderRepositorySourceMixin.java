@@ -10,7 +10,7 @@ public class FolderRepositorySourceMixin {
 
     //~ if <1.20.2 'discoverPacks' -> 'detectPackResources'
     @ModifyArg(method = "discoverPacks", at = @At(value = "INVOKE", target = "Lorg/slf4j/Logger;info(Ljava/lang/String;Ljava/lang/Object;)V"))
-    private static String suppressEntryLog(String message) {
+    private static String sd$suppressEntryLog(String message) {
         return message.replace(" '{}'", "");
     }
 }

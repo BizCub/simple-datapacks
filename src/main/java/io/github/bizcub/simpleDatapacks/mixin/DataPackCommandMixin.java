@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class DataPackCommandMixin {
 
     @Inject(method = "disablePack", at = @At("HEAD"))
-    private static void getDisabledPackId(CommandSourceStack source, Pack unopened, CallbackInfoReturnable<Integer> cir) {
+    private static void sd$getDisabledPackId(CommandSourceStack source, Pack unopened, CallbackInfoReturnable<Integer> cir) {
         Main.disabledDatapack = unopened.getId();
     }
 }

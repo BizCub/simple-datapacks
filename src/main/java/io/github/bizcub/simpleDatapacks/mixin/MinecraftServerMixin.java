@@ -39,18 +39,18 @@ public class MinecraftServerMixin {
     @Shadow @Final protected WorldData worldData;
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void copyDatapacksInit(CallbackInfo ci) {
-        copyDatapacks();
+    private void sd$copyDatapacksInit(CallbackInfo ci) {
+        sd$copyDatapacks();
     }
 
     @Inject(method = "reloadResources", at = @At("TAIL"))
-    private void copyDatapacksReload(CallbackInfoReturnable<CompletableFuture<Void>> cir) {
-        copyDatapacks();
+    private void sd$copyDatapacksReload(CallbackInfoReturnable<CompletableFuture<Void>> cir) {
+        sd$copyDatapacks();
     }
 
     @ModifyVariable(method = "reloadResources", at = @At("HEAD"), argsOnly = true)
-    private Collection<String> reload(Collection<String> packsToEnable) {
-        displayMessage();
+    private Collection<String> sd$reload(Collection<String> packsToEnable) {
+        sd$displayMessage();
 
         DataPackConfig worldDatapacks = worldData.getDataConfiguration().dataPacks();
         List<String> disabledDatapacks = new ArrayList<>(worldDatapacks.getDisabled());
@@ -72,7 +72,7 @@ public class MinecraftServerMixin {
     }
 
     @Redirect(method = "configurePackRepository", at = @At(value = "INVOKE", target = "Ljava/util/Set;add(Ljava/lang/Object;)Z", ordinal = 1))
-    private static boolean preventAutoLoading(Set<String> packs, Object pack) {
+    private static boolean sd$preventAutoLoading(Set<String> packs, Object pack) {
         String packName = (String) pack;
 
         if (!packName.startsWith("file/") || Main.isRequiredDatapack(packName))
@@ -82,7 +82,7 @@ public class MinecraftServerMixin {
     }
 
     @Unique
-    private void copyDatapacks() {
+    private void sd$copyDatapacks() {
         if (packRepository != null) {
             Path path = storageSource.getLevelPath(LevelResource.DATAPACK_DIR);
             Collection<String> enabled = packRepository.getSelectedIds();
@@ -91,7 +91,7 @@ public class MinecraftServerMixin {
     }
 
     @Unique
-    private void displayMessage() {
+    private void sd$displayMessage() {
         if (Config.get().sendRestartWarning()) {
             playerList.getPlayers().forEach(player ->
                     //~ if >=26.1 'displayClientMessage' -> 'sendSystemMessage'

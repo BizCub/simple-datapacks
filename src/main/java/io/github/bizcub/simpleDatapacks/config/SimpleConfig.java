@@ -6,7 +6,7 @@ import io.github.bizcub.simpleDatapacks.Main;
 
 import java.util.List;
 
-@AutoConfig(name = Main.MOD_ID, translate = true)
+@AutoConfig(name = Main.MOD_ID, translate = true, fileName = Main.MOD_ID + "_scl")
 public class SimpleConfig implements Config {
 
     public static ConfigHolder<SimpleConfig> getInstance() {

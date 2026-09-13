@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ServerPacksSourceMixin {
 
     @Inject(method = "createBuiltinPack", at = @At("HEAD"), cancellable = true)
-    private void removeFeatures(CallbackInfoReturnable<Pack> cir) {
+    private void sd$removeFeatures(CallbackInfoReturnable<Pack> cir) {
         if (!Config.get().enableFeatures()) cir.cancel();
     }
 }
