@@ -7,6 +7,7 @@ import net.minecraft.server.packs.repository.FolderRepositorySource;
 import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.server.packs.repository.RepositorySource;
+import net.minecraft.server.packs.repository.ServerPacksSource;
 /*? >=1.20.2*/ import net.minecraft.world.level.validation.DirectoryValidator;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.nio.file.Paths;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -27,8 +28,8 @@ public class PackRepositoryMixin {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void sd$addSources(CallbackInfo ci) {
-        if (!Main.initialized) return;
-        sd$vanillaSources = new HashSet<>(this.sources);
+        if (!Main.initialized || !sd$isServerRepository()) return;
+        sd$vanillaSources = new LinkedHashSet<>(this.sources);
         sd$rebuild();
     }
 
@@ -39,8 +40,16 @@ public class PackRepositoryMixin {
     }
 
     @Unique
+    private boolean sd$isServerRepository() {
+        for (RepositorySource source : this.sources) {
+            if (source instanceof ServerPacksSource) return true;
+        }
+        return false;
+    }
+
+    @Unique
     private void sd$rebuild() {
-        Set<RepositorySource> sources = new HashSet<>(sd$vanillaSources);
+        Set<RepositorySource> sources = new LinkedHashSet<>(sd$vanillaSources);
         sources.addAll(sd$add(true));
         sources.addAll(sd$add(false));
         this.sources = sources;
@@ -48,7 +57,7 @@ public class PackRepositoryMixin {
 
     @Unique
     private Set<FolderRepositorySource> sd$add(boolean required) {
-        Set<FolderRepositorySource> providedDatapacks = new HashSet<>();
+        Set<FolderRepositorySource> providedDatapacks = new LinkedHashSet<>();
         List<String> paths = required
                 ? Config.get().requiredDatapacksPaths()
                 : Config.get().optionalDatapacksPaths();
