@@ -10,8 +10,8 @@ multiloader {
         }
     }
 
-    setMREnvironment(mrEnvs.clientOnly)
-    setCFEnvironment(cfEnvs.client)
+    setMREnvironment(mrEnvs.serverOnlyClientOptional)
+    setCFEnvironment(cfEnvs.both)
 
     versionRange("26.1.2", to = "latest")
     versionRange("1.21.3", to = "1.21.11")
@@ -24,7 +24,7 @@ multiloader {
         configuration = "runtimeOnly"
     )
     addDependency(
-        dependency = getSimpleConfigLibDep(),
+        dependency = getSimpleConfigLibDep("2.0"),
         isPublishDepEnabled = true
     )
     val isClothConfigAvailable = !(isForge && scp > "1.21.3")
