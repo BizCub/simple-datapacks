@@ -25,6 +25,7 @@ public class PackRepositoryMixin {
     @Shadow @Final @Mutable private Set<RepositorySource> sources;
 
     @Unique private Set<RepositorySource> sd$vanillaSources;
+    @Unique private List<String> sd$appliedPaths;
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void sd$addSources(CallbackInfo ci) {
@@ -36,6 +37,7 @@ public class PackRepositoryMixin {
     @Inject(method = "reload", at = @At("HEAD"))
     private void sd$refreshSources(CallbackInfo ci) {
         if (!Main.initialized || sd$vanillaSources == null) return;
+        if (Main.getAllDatapacksPaths().equals(sd$appliedPaths)) return;
         sd$rebuild();
     }
 
@@ -53,6 +55,7 @@ public class PackRepositoryMixin {
         sources.addAll(sd$add(true));
         sources.addAll(sd$add(false));
         this.sources = sources;
+        sd$appliedPaths = Main.getAllDatapacksPaths();
     }
 
     @Unique

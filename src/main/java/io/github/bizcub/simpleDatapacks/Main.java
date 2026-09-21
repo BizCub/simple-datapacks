@@ -32,14 +32,17 @@ public class Main {
         }
     }
 
-    public static void copyDatapacks(Path dest, List<String> rawDatapacks) {
-        if (!(Config.get().copyDatapacks())) return;
-
+    public static List<String> getAllDatapacksPaths() {
         List<String> allPaths = new ArrayList<>();
         allPaths.addAll(Config.get().optionalDatapacksPaths());
         allPaths.addAll(Config.get().requiredDatapacksPaths());
+        return allPaths;
+    }
 
-        for (String path : allPaths) {
+    public static void copyDatapacks(Path dest, List<String> rawDatapacks) {
+        if (!(Config.get().copyDatapacks())) return;
+
+        for (String path : getAllDatapacksPaths()) {
             Path src = Paths.get(path);
 
             List<String> datapacks = new ArrayList<>();
