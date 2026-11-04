@@ -3,6 +3,7 @@ package io.github.bizcub.simpleDatapacks.mixin;
 import io.github.bizcub.simpleDatapacks.Main;
 import io.github.bizcub.simpleDatapacks.config.Config;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.repository.FolderRepositorySource;
 import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.server.packs.repository.PackSource;
@@ -59,13 +60,20 @@ public class PackRepositoryMixin {
     }
 
     @Unique
-    private Set<FolderRepositorySource> sd$add(boolean required) {
-        Set<FolderRepositorySource> providedDatapacks = new LinkedHashSet<>();
+    private Set<RepositorySource> sd$add(boolean required) {
+        Set<RepositorySource> providedDatapacks = new LinkedHashSet<>();
         List<String> paths = required
                 ? Config.get().requiredDatapacksPaths()
                 : Config.get().optionalDatapacksPaths();
-        paths.forEach(path -> providedDatapacks.add(new FolderRepositorySource(
-                Paths.get(path), PackType.SERVER_DATA, PackSource.DEFAULT, new DirectoryValidator(p -> true))));
+        paths.forEach(path -> {
+            FolderRepositorySource source = new FolderRepositorySource(
+                    Paths.get(path), PackType.SERVER_DATA, PackSource.DEFAULT, new DirectoryValidator(p -> true));
+            providedDatapacks.add(consumer -> source.loadPacks(pack -> {
+                try (PackResources resources = pack.open()) {
+                    if (!resources.getNamespaces(PackType.SERVER_DATA).isEmpty()) consumer.accept(pack);
+                }
+            }));
+        });
         return providedDatapacks;
     }
 }
