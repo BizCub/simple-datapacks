@@ -8,6 +8,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.level.DataPackConfig;
+import net.minecraft.world.level.WorldDataConfiguration;
 import net.minecraft.world.level.storage.LevelResource;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.WorldData;
@@ -55,11 +56,11 @@ public class MinecraftServerMixin {
         DataPackConfig worldDatapacks = worldData.getDataConfiguration().dataPacks();
         List<String> disabledDatapacks = new ArrayList<>(worldDatapacks.getDisabled());
         List<String> datapacksToEnable = new ArrayList<>(worldDatapacks.getEnabled());
-        List<String> uniqueDatapacks = packsToEnable.stream().filter(e -> !datapacksToEnable.contains(e)).collect(Collectors.toList());
+        List<String> uniqueDatapacks = packsToEnable.stream().filter(e -> !datapacksToEnable.contains(e)).toList();
 
         // Enabling required datapacks
         if (Config.get().shouldApplyRequiredPacksToExistingWorld())
-            uniqueDatapacks.stream().filter(Main::isRequiredDatapack).forEach(datapacksToEnable::add);
+            uniqueDatapacks.stream().filter(id -> Main.isRequiredDatapack(packRepository, id)).forEach(datapacksToEnable::add);
 
         // If the datapack was disabled and then turned on, it needs to be applied
         disabledDatapacks.stream().filter(uniqueDatapacks::contains).forEach(datapacksToEnable::add);
@@ -72,10 +73,10 @@ public class MinecraftServerMixin {
     }
 
     @Redirect(method = "configurePackRepository", at = @At(value = "INVOKE", target = "Ljava/util/Set;add(Ljava/lang/Object;)Z", ordinal = 1))
-    private static boolean sd$preventAutoLoading(Set<String> packs, Object pack) {
+    private static boolean sd$preventAutoLoading(Set<String> packs, Object pack, PackRepository packRepository, WorldDataConfiguration initialDataConfig, boolean initMode, boolean safeMode) {
         String packName = (String) pack;
 
-        if (!packName.startsWith("file/") || Main.isRequiredDatapack(packName))
+        if (!packName.startsWith("file/") || Main.isRequiredDatapack(packRepository, packName))
             return packs.add(packName);
 
         return false;
@@ -85,8 +86,7 @@ public class MinecraftServerMixin {
     private void sd$copyDatapacks() {
         if (packRepository != null) {
             Path path = storageSource.getLevelPath(LevelResource.DATAPACK_DIR);
-            Collection<String> enabled = packRepository.getSelectedIds();
-            Main.copyDatapacks(path, new ArrayList<>(enabled));
+            Main.copyDatapacks(path, packRepository);
         }
     }
 

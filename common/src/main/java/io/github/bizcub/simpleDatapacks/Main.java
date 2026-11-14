@@ -1,13 +1,13 @@
 package io.github.bizcub.simpleDatapacks;
 
 import io.github.bizcub.simpleDatapacks.config.*;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackRepository;
 import org.apache.commons.io.FileUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +19,12 @@ public class Main {
     public static List<String> features = new ArrayList<>();
     public static String disabledDatapack = "";
 
+    public record DatapackSource(Path path, boolean required) {}
+
+    public interface DatapackSources {
+        DatapackSource simpleDatapacks$getSource(String id);
+    }
+
     public static void init(Path path) {
         initialized = true;
         minecraftFolder = path;
@@ -28,60 +34,27 @@ public class Main {
         }
     }
 
-    public static List<String> getAllDatapacksPaths() {
-        List<String> allPaths = new ArrayList<>();
-        allPaths.addAll(Config.get().optionalDatapacksPaths());
-        allPaths.addAll(Config.get().requiredDatapacksPaths());
-        return allPaths;
-    }
+    public static void copyDatapacks(Path dest, PackRepository repository) {
+        if (!Config.get().copyDatapacks()) return;
 
-    public static void copyDatapacks(Path dest, List<String> rawDatapacks) {
-        if (!(Config.get().copyDatapacks())) return;
-
-        for (String path : getAllDatapacksPaths()) {
-            Path src = Paths.get(path);
-
-            List<String> datapacks = new ArrayList<>();
-            rawDatapacks.removeIf(s -> !s.startsWith("file/"));
-            rawDatapacks.forEach(s -> datapacks.add(s.substring(5)));
-
+        for (Pack pack : repository.getSelectedPacks()) {
+            DatapackSource source = ((DatapackSources) repository).simpleDatapacks$getSource(pack.getId());
+            if (source == null) continue;
+            Path target = dest.resolve(source.path().getFileName());
             try {
-                for (String str : datapacks) {
-                    if (!Files.exists(src.resolve(str))) continue;
-
-                    Path pack = src.resolve(str);
-                    if (Files.isRegularFile(pack) && pack.toString().endsWith(".zip"))
-                        FileUtils.copyFile(pack.toFile(), dest.resolve(str).toFile());
-                    else
-                        FileUtils.copyDirectory(pack.toFile(), dest.resolve(str).toFile());
-                }
+                if (Files.exists(target) && Files.isSameFile(source.path(), target)) continue;
+                if (Files.isRegularFile(source.path()))
+                    FileUtils.copyFile(source.path().toFile(), target.toFile());
+                else
+                    FileUtils.copyDirectory(source.path().toFile(), target.toFile());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public static boolean isRequiredDatapack(String checkedDatapack) {
-        for (String requiredDatapack : getRequiredDatapacks()) {
-            if (requiredDatapack.equals(checkedDatapack)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static List<String> getRequiredDatapacks() {
-        ArrayList<String> requiredDatapacks = new ArrayList<>();
-
-        for (String path : Config.get().requiredDatapacksPaths()) {
-            File[] files = new File(path).listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    requiredDatapacks.add("file/" + file.getName());
-                }
-            }
-        }
-
-        return requiredDatapacks;
+    public static boolean isRequiredDatapack(PackRepository repository, String id) {
+        DatapackSource source = ((DatapackSources) repository).simpleDatapacks$getSource(id);
+        return source != null && source.required();
     }
 }
