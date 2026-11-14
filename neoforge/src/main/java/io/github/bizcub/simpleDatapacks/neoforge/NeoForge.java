@@ -2,6 +2,7 @@ package io.github.bizcub.simpleDatapacks.neoforge;
 
 import io.github.bizcub.simpleDatapacks.Main;
 import io.github.bizcub.simpleDatapacks.config.ConfigHelper;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLPaths;
@@ -11,7 +12,7 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 public class NeoForge {
 
     public NeoForge() {
-        Main.init(FMLPaths.GAMEDIR.get());
+        Main.init(FMLPaths.GAMEDIR.get(), ModList.get().isLoaded(ConfigHelper.SIMPLE_CONFIG_MOD_ID));
 
         ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () ->
             (container, parent) -> ConfigHelper.getScreen(parent));

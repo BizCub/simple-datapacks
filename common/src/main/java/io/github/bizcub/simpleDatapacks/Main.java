@@ -25,11 +25,11 @@ public class Main {
         DatapackSource simpleDatapacks$getSource(String id);
     }
 
-    public static void init(Path path) {
+    public static void init(Path path, boolean hasSimpleConfig) {
         initialized = true;
         minecraftFolder = path;
 
-        if (ConfigHelper.isConfigLoaded()) {
+        if (hasSimpleConfig) {
             Config.set(SimpleConfig.getInstance().get());
         }
     }
