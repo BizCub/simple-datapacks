@@ -28,6 +28,9 @@ public class SimpleConfig implements Config {
     @Tooltip
     public boolean sendRestartWarning = Config.super.sendRestartWarning();
 
+    @Tooltip
+    public boolean hideNonPackPathsInLog = Config.super.hideNonPackPathsInLog();
+
     public List<String> requiredDatapacksPaths = Config.super.requiredDatapacksPaths();
 
     public List<String> optionalDatapacksPaths = Config.super.optionalDatapacksPaths();
@@ -55,6 +58,11 @@ public class SimpleConfig implements Config {
     @Override
     public boolean sendRestartWarning() {
         return this.sendRestartWarning;
+    }
+
+    @Override
+    public boolean hideNonPackPathsInLog() {
+        return this.hideNonPackPathsInLog;
     }
 
     @Override

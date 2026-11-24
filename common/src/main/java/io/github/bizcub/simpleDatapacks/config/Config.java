@@ -46,6 +46,10 @@ public interface Config {
         return true;
     }
 
+    default boolean hideNonPackPathsInLog() {
+        return true;
+    }
+
     default List<String> requiredDatapacksPaths() {
         return new ArrayList<>();
     }

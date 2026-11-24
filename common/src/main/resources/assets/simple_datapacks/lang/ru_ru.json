@@ -1,19 +1,4 @@
 {
-    "text.autoconfig.simple_datapacks.title": "Настройки Simple Datapacks",
-    "text.autoconfig.simple_datapacks.option.copyDatapacks": "Копировать пакеты данных",
-    "text.autoconfig.simple_datapacks.option.copyDatapacks.@Tooltip": "Копировать ли наборы данных в мир при их выборе",
-    "text.autoconfig.simple_datapacks.option.shouldApplyRequiredPacksToExistingWorld": "Применить ли обязательные пакеты данных к существующему миру",
-    "text.autoconfig.simple_datapacks.option.shouldApplyRequiredPacksToExistingWorld.@Tooltip": "При добавлении пакета данных в необходимую папку, будет ли он применен к уже созданному миру?",
-    "text.autoconfig.simple_datapacks.option.enableFeatures": "Включить эксперименты",
-    "text.autoconfig.simple_datapacks.option.enableFeatures.@Tooltip": "Включить ли экспериментальные пакеты данных",
-    "text.autoconfig.simple_datapacks.option.globalFeatures": "Глобальные эксперименты",
-    "text.autoconfig.simple_datapacks.option.globalFeatures.@Tooltip[0]": "Использовать эксперименты глобально?",
-    "text.autoconfig.simple_datapacks.option.globalFeatures.@Tooltip[1]": "(Работает при включенных экспериментах)",
-    "text.autoconfig.simple_datapacks.option.sendRestartWarning": "Отправить предупреждение",
-    "text.autoconfig.simple_datapacks.option.sendRestartWarning.@Tooltip": "Отправить предупреждение о перезапуска мира?",
-    "text.autoconfig.simple_datapacks.option.requiredDatapacksPaths": "Пути к обязательным папкам с пакетами данных",
-    "text.autoconfig.simple_datapacks.option.optionalDatapacksPaths": "Пути к необязательным папкам с пакетами данных",
-
     "text.simple_datapacks.group.general": "Настройки Simple Datapacks",
     "text.simple_datapacks.option.copyDatapacks": "Копировать пакеты данных",
     "text.simple_datapacks.option.copyDatapacks.tooltip": "Копировать ли наборы данных в мир при их выборе",
@@ -25,6 +10,8 @@
     "text.simple_datapacks.option.globalFeatures.tooltip": "Использовать эксперименты глобально?\n(Работает при включенных экспериментах)",
     "text.simple_datapacks.option.sendRestartWarning": "Отправить предупреждение",
     "text.simple_datapacks.option.sendRestartWarning.tooltip": "Отправить предупреждение о перезапуска мира?",
+    "text.simple_datapacks.option.hideNonPackPathsInLog": "Скрывать пути в журнале датапаков",
+    "text.simple_datapacks.option.hideNonPackPathsInLog.tooltip": "Скрывать пути к файлам и папкам в сообщениях о пропущенных записях, которые не являются датапаками.",
     "text.simple_datapacks.option.requiredDatapacksPaths": "Пути к обязательным папкам с пакетами данных",
     "text.simple_datapacks.option.optionalDatapacksPaths": "Пути к необязательным папкам с пакетами данных",
 
